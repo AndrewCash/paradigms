@@ -32,7 +32,7 @@ class View extends JPanel
 		}
 
 		// Reference model in component
-		//model = c.model;
+		model = c.model;
 	}
 
     void removeButton()
