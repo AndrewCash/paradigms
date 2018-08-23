@@ -21,9 +21,6 @@ class View extends JPanel
 
 	View(Controller c)
 	{
-		b1 = new JButton("oWo What's this???");
-		b1.addActionListener(c);
-		this.add(b1);
         c.setView(this);
 
 		// Load turtle image
