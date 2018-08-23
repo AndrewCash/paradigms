@@ -3,6 +3,10 @@
 // Fall 2018
 // Assignment 1
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 class Model
 {
     int turtle_x;
@@ -10,15 +14,23 @@ class Model
     int dest_x;
     int dest_y;
 
+    ArrayList<Brick> bricks;
+
     Model()
     {
+        bricks = new ArrayList<Brick>();
+
+        Brick b = new Brick(400, 300, 200, 100);
+        bricks.add(b);
+
     }
 
     public void update()
     {
         // Move the turtle
         //  - move 4 units
-        //  - if distance moved is less than 4 move the difference between destination and location
+        //  - if distance moved is less than 4 move the difference between
+        //    destination and location
 
         if (this.turtle_x < this.dest_x) // Move right
             this.turtle_x += Math.min(4, dest_x - turtle_x);
@@ -35,4 +47,5 @@ class Model
         this.dest_x = x;
         this.dest_y = y;
     }
+
 }
