@@ -8,20 +8,24 @@ import java.awt.Toolkit;
 
 public class Game extends JFrame
 {
-	Model model = new Model();
-	Controller controller = new Controller(model);
-	View view = new View(controller);
+	Model model;
+	Controller controller;
+	View view;
 
 	public Game()
 	{
+		model = new Model();
+		controller = new Controller(model);
+		view = new View(controller);
+		view.addMouseListener(controller);
+		this.addKeyListener(controller);
+
 		this.setTitle("Turtle attack!");
 		this.setSize(500, 500);
 		this.setFocusable(true);
 		this.getContentPane().add(view);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-		this.addMouseListener(controller);
-		this.addKeyListener(controller);
 	}
 
 	public static void main(String[] args)

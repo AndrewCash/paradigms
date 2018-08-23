@@ -16,6 +16,7 @@ class View extends JPanel
 {
 	JButton b1;
 	BufferedImage turtle_image;	// Add turtle
+	BufferedImage tube_image; // Add tube
 	Model model;
 
 
@@ -28,6 +29,16 @@ class View extends JPanel
 		{
 			this.turtle_image =
 				ImageIO.read(new File("turtle.png"));
+		}	catch(Exception e) {
+				e.printStackTrace(System.err);
+				System.exit(1);
+		}
+
+		// Load tube image
+		try
+		{
+			this.turtle_image =
+				ImageIO.read(new File("tube.png"));
 		}	catch(Exception e) {
 				e.printStackTrace(System.err);
 				System.exit(1);
@@ -47,7 +58,12 @@ class View extends JPanel
 	{
 		g.setColor(new Color(128, 255, 255));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		g.drawImage(this.turtle_image, model.turtle_x, model.turtle_y, null);
+
+		for (int i=0; i < model.tubes.size(); i++)
+		{
+			Brick  b = model.bricks.get(i);
+			g.drawBox(tube_image, b.x, b.y, b.w, b.h);
+		}
 	}
 
 
