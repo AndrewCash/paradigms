@@ -1,7 +1,7 @@
 // Andrew Cash
 // Programming Paradigms
 // Fall 2018
-// Assignment 1
+// Assignment 2
 
 import javax.swing.JPanel;
 import java.awt.Graphics;

@@ -1,6 +1,7 @@
 // Andrew Cash
 // Programming Paradigms
 // Fall 2018
+// Assignment 2
 
 class Brick
 {

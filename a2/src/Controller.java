@@ -1,7 +1,7 @@
 // Andrew Cash
 // Programming Paradigms
 // Fall 2018
-// Assignment 1
+// Assignment 2
 
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
