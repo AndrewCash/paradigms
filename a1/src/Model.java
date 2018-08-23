@@ -1,3 +1,8 @@
+// Andrew Cash
+// Programming Paradigms
+// Fall 2018
+// Assignment 1
+
 class Model
 {
     int turtle_x;

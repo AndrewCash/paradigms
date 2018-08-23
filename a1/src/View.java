@@ -1,3 +1,8 @@
+// Andrew Cash
+// Programming Paradigms
+// Fall 2018
+// Assignment 1
+
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
