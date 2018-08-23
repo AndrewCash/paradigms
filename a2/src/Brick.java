@@ -5,5 +5,5 @@
 class Brick
 {
     int x, y, w, h; // Hold dimensions of Brick
-    
+
 }
