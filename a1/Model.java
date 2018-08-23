@@ -18,11 +18,11 @@ class Model
         if (this.turtle_x < this.dest_x) // Move right
             this.turtle_x += Math.min(4, dest_x - turtle_x);
         if (this.turtle_x > this.dest_x) // Move left
-            this.turtle_x -= Math.min(4, dest_x - turtle_x);
+            this.turtle_x -= Math.min(4, turtle_x - dest_x);
         if (this.turtle_y < this.dest_y) // Move up
             this.turtle_y += Math.min(4, dest_y - turtle_y);
         else if (this.turtle_y > this.dest_y) // Move down
-            this.turtle_y -= Math.min(4, dest_y - turtle_y);
+            this.turtle_y -= Math.min(4, turtle_y - dest_y);
     }
 
     public void setDestination(int x, int y)
