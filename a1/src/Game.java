@@ -19,7 +19,7 @@ public class Game extends JFrame
 		view = new View(controller);
 		view.addMouseListener(controller);
 		this.addKeyListener(controller);
-		
+
 		this.setTitle("Turtle attack!");
 		this.setSize(500, 500);
 		this.setFocusable(true);
@@ -29,7 +29,7 @@ public class Game extends JFrame
 	}
 
 	public static void main(String[] args)
-	{./
+	{
 		Game g = new Game();
 		g.run();
 	}
