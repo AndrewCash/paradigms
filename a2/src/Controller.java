@@ -20,6 +20,9 @@ class Controller implements ActionListener, MouseListener, KeyListener
 	boolean keyUp;
 	boolean keyDown;
 
+	int mouseDownX;
+	int mouseDownY;
+
 	Controller(Model m)
 	{
 		model = m;
@@ -43,10 +46,25 @@ class Controller implements ActionListener, MouseListener, KeyListener
 	//
 	public void mousePressed(MouseEvent e)
 	{
-		model.setDestination(e.getX(), e.getY());
+		//model.setDestination(e.getX(), e.getY());
+		mouseDownX = e.getX();
+		mouseDownY = e.getY();
 	}
 
-	public void mouseReleased(MouseEvent e) {    }
+	public void mouseReleased(MouseEvent e)
+	{
+		int x1 = mouseDownX;
+		int x2 = e.getX();
+		int y1 = mouseDownY;
+		int y2 = e.getY();
+		int top = Math.max(y1,y2);
+		int bottom = Math.min(y1, y2);
+		int left = Math.min(x1, x2);
+		int right = Math.max(x1, x2);
+
+		model.addBrick(left + model.scrollPos, mouseDownY, e.getX() - mouseDownX, e.getY() - mouseDownY);
+	}
+
 	public void mouseEntered(MouseEvent e) {    }
 	public void mouseExited(MouseEvent e) {    }
 	public void mouseClicked(MouseEvent e) {    }
@@ -62,12 +80,19 @@ class Controller implements ActionListener, MouseListener, KeyListener
 			case KeyEvent.VK_LEFT: keyLeft = true; break;
 			case KeyEvent.VK_UP: keyUp = true; break;
 			case KeyEvent.VK_DOWN: keyDown = true; break;
+		}
 
-			// WASD directional support
-			case KeyEvent.VK_D: keyRight = true; break;
-			case KeyEvent.VK_A: keyLeft = true; break;
-			case KeyEvent.VK_W: keyUp = true; break;
-			case KeyEvent.VK_S: keyDown = true; break;
+		char c = e.getKeyChar();
+		if (c == 's')
+		{
+			System.out.println("Saving...");
+			model.marshal().save("model.json");
+		}
+		else if (c == 'l')
+		{
+			System.out.println("Loading...");
+			Json j = Json.load("model.json");
+			model.unmarshal(j);
 		}
 	}
 
@@ -79,12 +104,6 @@ class Controller implements ActionListener, MouseListener, KeyListener
 			case KeyEvent.VK_LEFT: keyLeft = false; break;
 			case KeyEvent.VK_UP: keyUp = false; break;
 			case KeyEvent.VK_DOWN: keyDown = false; break;
-
-			// WASD directional support
-			case KeyEvent.VK_D: keyRight = false; break;
-			case KeyEvent.VK_A: keyLeft = false; break;
-			case KeyEvent.VK_W: keyUp = false; break;
-			case KeyEvent.VK_S: keyDown = false; break;
 		}
 	}
 
@@ -95,10 +114,10 @@ class Controller implements ActionListener, MouseListener, KeyListener
 	//
 	void update()
 	{
-		if(keyRight) model.dest_x++;
-		if(keyLeft) model.dest_x--;
-		if(keyDown) model.dest_y++;
-		if(keyUp) model.dest_y--;
+		if(keyRight) {model.scrollPos = model.scrollPos + 5;}
+		if(keyLeft) {model.scrollPos = model.scrollPos - 5;}
+		// if(keyDown) model.dest_y++;
+		// if(keyUp) model.dest_y--;
 	}
 
 }

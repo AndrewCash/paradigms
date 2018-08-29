@@ -16,7 +16,7 @@ public class Game extends JFrame
 	{
 		model = new Model();
 		controller = new Controller(model);
-		view = new View(controller);
+		view = new View(controller, model);
 		view.addMouseListener(controller);
 		this.addKeyListener(controller);
 
@@ -26,6 +26,25 @@ public class Game extends JFrame
 		this.getContentPane().add(view);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+	}
+
+	// Test brick marshall function
+	// UNIT TEST UNIT TEST UNIT TEST
+	static void testBrickMarshaller()
+	{
+		Brick b = new Brick(400, 300, 200, 100);
+		Json j = b.marshal();
+		j.save("testbrick.json");
+	}
+
+	// Test model marshall function
+	static void testModelMarshaller()
+	{
+		Model m = new Model();
+		m.bricks.add(new Brick(400, 300, 200, 100));
+
+		Json j = m.marshal();
+		j.save("testmodel.json");
 	}
 
 	public static void main(String[] args)

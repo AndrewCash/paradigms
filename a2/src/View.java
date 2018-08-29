@@ -16,36 +16,12 @@ class View extends JPanel
 {
 	JButton b1;
 	BufferedImage turtle_image;	// Add turtle
-	BufferedImage tube_image; // Add tube
 	Model model;
 
 
-	View(Controller c)
+	View(Controller c, Model m)
 	{
-        c.setView(this);
-
-		// Load turtle image
-		try
-		{
-			this.turtle_image =
-				ImageIO.read(new File("turtle.png"));
-		}	catch(Exception e) {
-				e.printStackTrace(System.err);
-				System.exit(1);
-		}
-
-		// Load tube image
-		try
-		{
-			this.turtle_image =
-				ImageIO.read(new File("tube.png"));
-		}	catch(Exception e) {
-				e.printStackTrace(System.err);
-				System.exit(1);
-		}
-
-		// Reference model in component
-		model = c.model;
+		model = m;
 	}
 
     void removeButton()
@@ -56,13 +32,16 @@ class View extends JPanel
 
 	public void paintComponent(Graphics g)
 	{
-		g.setColor(new Color(128, 255, 255));
+		// Set cyan background
+		g.setColor(new Color(255, 255, 255));
+
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-		for (int i=0; i < model.tubes.size(); i++)
+		g.setColor(new Color(0, 0, 0));
+		for (int i=0; i < model.bricks.size(); i++)
 		{
 			Brick  b = model.bricks.get(i);
-			g.drawBox(tube_image, b.x, b.y, b.w, b.h);
+			g.drawRect(b.x - model.scrollPos, b.y, b.w, b.h);
 		}
 	}
 
