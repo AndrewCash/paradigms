@@ -20,7 +20,7 @@ public class Game extends JFrame
 		view.addMouseListener(controller);
 		this.addKeyListener(controller);
 
-		this.setTitle("Turtle attack!");
+		this.setTitle("Map Editor");
 		this.setSize(500, 500);
 		this.setFocusable(true);
 		this.getContentPane().add(view);
