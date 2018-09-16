@@ -5,6 +5,7 @@
 
 import javax.swing.JPanel;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -14,35 +15,73 @@ import java.awt.Color;
 
 class View extends JPanel
 {
-	JButton b1;
-	BufferedImage turtle_image;	// Add turtle
+	Controller controller;
 	Model model;
-
+	Image[] mario_images;
+	int marioImagesIndex = 0;
 
 	View(Controller c, Model m)
 	{
+		mario_images = new Image[5];
+		controller = c;
 		model = m;
+
+		// Load Mario images
+		try
+		{
+			mario_images[0] = ImageIO.read(new File("images/mario1.png"));
+			mario_images[1] = ImageIO.read(new File("images/mario2.png"));
+			mario_images[2] = ImageIO.read(new File("images/mario3.png"));
+			mario_images[3] = ImageIO.read(new File("images/mario4.png"));
+			mario_images[4] = ImageIO.read(new File("images/mario5.png"));
+
+		}	catch(Exception e) {
+				e.printStackTrace(System.err);
+				System.exit(1);
+		}
 	}
 
-    void removeButton()
-    {
-        this.remove(b1);
-        this.repaint();
-    }
-
+	// Called in Game.run() through view.repaint
+	// Should act as update() function
+	// Runs every 25 ms
 	public void paintComponent(Graphics g)
 	{
 		// Set cyan background
-		g.setColor(new Color(255, 255, 255));
-
+		g.setColor(new Color(44, 171, 244));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
+		// Draw ground
+		// - put this in the model if you want to have pits
+		g.setColor(new Color(46, 247, 147));
+		g.fillRect(0, 450, 2000, 450);
+
+		// Draw bricks
 		g.setColor(new Color(0, 0, 0));
 		for (int i=0; i < model.bricks.size(); i++)
 		{
 			Brick  b = model.bricks.get(i);
 			g.drawRect(b.x - model.scrollPos, b.y, b.w, b.h);
 		}
+
+		// Draw Mario
+		// - determine if Mario moved left or right
+		// - increment or decrement array of Mario images
+		// - draw Mario image
+		if (controller.keyRight)
+		{
+			marioImagesIndex++;
+			marioImagesIndex = marioImagesIndex % 5;
+		}
+
+		else if (controller.keyLeft)
+		{
+			marioImagesIndex--;
+			marioImagesIndex = marioImagesIndex % 5;
+		}
+
+		g.drawImage(this.mario_images[Math.abs(marioImagesIndex)], model.mario.x, model.mario.y, null);
+
+
 	}
 
 

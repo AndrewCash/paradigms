@@ -33,7 +33,7 @@ class Controller implements ActionListener, MouseListener, KeyListener
 	//
 	public void actionPerformed(ActionEvent e)
 	{
-		view.removeButton();
+		//view.removeButton();
 	}
 
     void setView(View v)
@@ -68,7 +68,13 @@ class Controller implements ActionListener, MouseListener, KeyListener
 
 	public void mouseEntered(MouseEvent e) {    }
 	public void mouseExited(MouseEvent e) {    }
-	public void mouseClicked(MouseEvent e) {    }
+	public void mouseClicked(MouseEvent e) 
+	{    
+		if(e.getY() < 100)
+		{
+			System.out.println("break here");
+		}
+	}
 
 	///////////////////////
 	// Keyboard Events

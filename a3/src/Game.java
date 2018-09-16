@@ -21,14 +21,14 @@ public class Game extends JFrame
 		this.addKeyListener(controller);
 
 		this.setTitle("Map Editor");
-		this.setSize(500, 500);
+		this.setSize(960, 540);
 		this.setFocusable(true);
 		this.getContentPane().add(view);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
 
-	// Test brick marshall function
+	// Test brick marshal function
 	// UNIT TEST UNIT TEST UNIT TEST
 	static void testBrickMarshaller()
 	{
@@ -37,7 +37,7 @@ public class Game extends JFrame
 		j.save("testbrick.json");
 	}
 
-	// Test model marshall function
+	// Test model marshal function
 	static void testModelMarshaller()
 	{
 		Model m = new Model();
@@ -45,12 +45,6 @@ public class Game extends JFrame
 
 		Json j = m.marshal();
 		j.save("testmodel.json");
-	}
-
-	public static void main(String[] args)
-	{
-		Game g = new Game();
-		g.run();
 	}
 
 	public void run()
@@ -62,7 +56,7 @@ public class Game extends JFrame
 			view.repaint(); // Indirectly calls View.paintComponent
 			Toolkit.getDefaultToolkit().sync(); // Updates screen
 
-			// Go to sleep for 25 miliseconds
+			// Go to sleep for 25 milliseconds
 			try
 			{
 				Thread.sleep(25);
@@ -71,6 +65,13 @@ public class Game extends JFrame
 				System.exit(1);
 			}
 		}
+	}
+
+	public static void main(String[] args)
+	{
+		Game g = new Game();
+		g.run();
+
 	}
 
 }

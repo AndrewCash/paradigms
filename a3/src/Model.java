@@ -6,19 +6,21 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
 class Model
 {
     int scrollPos;
     ArrayList<Brick> bricks;
+    Mario mario;
 
     Model()
     {
         bricks = new ArrayList<Brick>();
+        mario = new Mario();
     }
 
     public void update()
     {
+        mario.update(bricks);
     }
 
     void addBrick(int x1, int y1, int x2, int y2)
@@ -26,6 +28,9 @@ class Model
         Brick b = new Brick(x1, y1, x2, y2);
         bricks.add(b);
     }
+
+    //////////////////////////
+    // JSON saving and loading
 
     Json marshal()
     {
@@ -49,18 +54,5 @@ class Model
         for (int i=0; i < jsonList.size(); i++)
             bricks.add(new Brick(jsonList.get(i)));
     }
-
-
-        // Submarine(Json ob)
-        // {
-        //     atomic = ob.getBool("atomic");
-        //     crewSize = (int)ob.getLong("crewSize");
-        //     depth = ob.getDouble("depth");
-        //     peri = new Periscope(ob.get("peri"));
-        //     ammo = new ArrayList<Torpedo>();
-        //     Json tmpList = ob.get("ammo");
-        //     for(int i = 0; i < tmpList.size(); i++)
-        //         ammo.add(new Torpedo(tmpList.get(i)));
-        // }
 
 }
