@@ -19,6 +19,7 @@ class Controller implements ActionListener, MouseListener, KeyListener
 	boolean keyRight;
 	boolean keyUp;
 	boolean keyDown;
+	boolean keySpace;
 
 	int mouseDownX;
 	int mouseDownY;
@@ -68,8 +69,8 @@ class Controller implements ActionListener, MouseListener, KeyListener
 
 	public void mouseEntered(MouseEvent e) {    }
 	public void mouseExited(MouseEvent e) {    }
-	public void mouseClicked(MouseEvent e) 
-	{    
+	public void mouseClicked(MouseEvent e)
+	{
 		if(e.getY() < 100)
 		{
 			System.out.println("break here");
@@ -87,6 +88,7 @@ class Controller implements ActionListener, MouseListener, KeyListener
 			case KeyEvent.VK_LEFT: keyLeft = true; break;
 			case KeyEvent.VK_UP: keyUp = true; break;
 			case KeyEvent.VK_DOWN: keyDown = true; break;
+			case KeyEvent.VK_SPACE: keySpace = true; break;
 		}
 
 		char c = e.getKeyChar();
@@ -111,6 +113,7 @@ class Controller implements ActionListener, MouseListener, KeyListener
 			case KeyEvent.VK_LEFT: keyLeft = false; break;
 			case KeyEvent.VK_UP: keyUp = false; break;
 			case KeyEvent.VK_DOWN: keyDown = false; break;
+			case KeyEvent.VK_SPACE: keySpace = false; break;
 		}
 	}
 
@@ -121,8 +124,22 @@ class Controller implements ActionListener, MouseListener, KeyListener
 	//
 	void update()
 	{
-		if(keyRight) {model.scrollPos = model.scrollPos + 5;}
-		if(keyLeft) {model.scrollPos = model.scrollPos - 5;}
+		if(keyRight)
+		{
+			model.mario.x += 10;
+			//model.scrollPos = model.scrollPos + 5;
+		}
+
+		if(keyLeft)
+		{
+			model.mario.x -= 10;
+			//model.scrollPos = model.scrollPos - 5;
+		}
+
+		if (keySpace)
+		{
+			model.mario.vert_vel = -10;
+		}
 		// if(keyDown) model.dest_y++;
 		// if(keyUp) model.dest_y--;
 	}
