@@ -24,38 +24,6 @@ class Model
         mario.update();
     }
 
-    // returns true iff two rectangles overlap
-	void collision()
-	{
-        for (int i=0; i < bricks.size(); i++)
-		{
-            if(mario.right_side < bricks.get(i).x)
-    			isCollision = false;
-    		if(mario.left_side > bricks.get(i).w)
-    			isCollision = false;
-    		if(mario.bottom_side < bricks.get(i).y) // assumes bigger is downward
-    			isCollision = false;
-    		if(mario.top_side > bricks.get(i).h) // assumes bigger is downward
-    			isCollision = false;
-    		else
-            {
-                isCollision = true;
-
-            }
-		}
-
-        if (isCollision == false)
-        {
-            System.out.println("no collision...");
-        }
-
-        if (isCollision == true)
-        {
-            System.out.println("COLLISION!!");
-        }
-
-	}
-
     void addBrick(int x1, int y1, int x2, int y2)
     {
         Brick b = new Brick(x1, y1, x2, y2);

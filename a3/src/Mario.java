@@ -8,17 +8,27 @@ import java.util.ArrayList;
 public class Mario
 {
 	int x = 100;
-	int y = 0;
+	int y;
+	int w = 60;
+	int h = 95;
 	double vert_vel;
 	Boolean isCollision;
 
-	// Mario's hitbox
-	int right_side = x + 60;
-	int left_side = x;
-	int bottom_side = y + 95;
-	int top_side = y;
+	boolean isCollision(int _x, int _y, int _w, int _h)
+	{
+		if (x + w <= _x)
+			return false;
+		else if (x >= _x + _w)
+			return false;
+		else if (x + h <= _h)
+			return false;
+		else if (y >= _y + _h)
+			return false;
+		else
+			return true;
+	}
 
-	void update(ArrayList<Brick> bricks)
+	void update() // (ArrayList<Brick> bricks)
 	{
 		vert_vel += 1.2;
 		y += vert_vel;
