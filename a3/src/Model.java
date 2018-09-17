@@ -16,7 +16,7 @@ class Model
     Model()
     {
         bricks = new ArrayList<Brick>();
-        mario = new Mario();
+        mario = new Mario(this);
     }
 
     public void update()
