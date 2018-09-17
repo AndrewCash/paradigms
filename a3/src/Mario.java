@@ -15,7 +15,6 @@ public class Mario
 	int h = 95;
 	double vert_vel;
 	Boolean isCollision;
-	//String case;
 	Model model;
 
 	// Mario's hitbox
