@@ -17,7 +17,8 @@ class View extends JPanel
 {
 	Controller controller;
 	Model model;
-	Image[] mario_images;
+	Image[] mario_images = null;
+	Image background = null;
 	int marioImagesIndex = 0;
 
 	View(Controller c, Model m)
@@ -27,18 +28,23 @@ class View extends JPanel
 		model = m;
 
 		// Load Mario images
-		try
+		if (mario_images[0] == null)
 		{
-			mario_images[0] = ImageIO.read(new File("images/mario1.png"));
-			mario_images[1] = ImageIO.read(new File("images/mario2.png"));
-			mario_images[2] = ImageIO.read(new File("images/mario3.png"));
-			mario_images[3] = ImageIO.read(new File("images/mario4.png"));
-			mario_images[4] = ImageIO.read(new File("images/mario5.png"));
+			try
+			{
+				mario_images[0] = ImageIO.read(new File("images/mario1.png"));
+				mario_images[1] = ImageIO.read(new File("images/mario2.png"));
+				mario_images[2] = ImageIO.read(new File("images/mario3.png"));
+				mario_images[3] = ImageIO.read(new File("images/mario4.png"));
+				mario_images[4] = ImageIO.read(new File("images/mario5.png"));
+				background = ImageIO.read(new File("images/background.jpg"));
 
-		}	catch(Exception e) {
-				e.printStackTrace(System.err);
-				System.exit(1);
+			}	catch(Exception e) {
+					e.printStackTrace(System.err);
+					System.exit(1);
+			}
 		}
+
 	}
 
 	// Called in Game.run() through view.repaint
@@ -46,9 +52,10 @@ class View extends JPanel
 	// Runs every 25 ms
 	public void paintComponent(Graphics g)
 	{
-		// Set cyan background
+		// Draw background
 		g.setColor(new Color(44, 171, 244));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		g.drawImage(this.background, -model.scrollPos/2, 0, getWidth(), getHeight(), this);
 
 		// Draw ground
 		// - put this in the model if you want to have pits
