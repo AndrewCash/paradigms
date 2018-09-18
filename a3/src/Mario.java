@@ -14,7 +14,7 @@ public class Mario
 	int w = 60;
 	int h = 95;
 	double vert_vel;
-	Boolean isCollision;
+	Boolean isCollision = false;
 	Model model;
 	int jumpCounter;
 
@@ -69,19 +69,19 @@ public class Mario
 
 
 		// M right side hits B left side
-		if (x + w >= _x && prev_x + w < _x)
+		if ((x + w) >= _x && (prev_x + w) < _x)
 		{
 			x = _x - w - 10;
 		}
 
 		// M left side hits B right side
-		else if (x <= _x + _w && prev_x > _x + _w)
+		else if (x <= (_x + _w) && prev_x > (_x + _w))
 		{
 			x = _x + w + 10;
 		}
 
 		// M bottom hits B top
-		if (y + h >= _y && prev_y + h > _h)
+		else if ((y + h) >= _y && (prev_y + h) > _h)
 		{
 			y = _y - h - 1;
 			vert_vel = 0;
@@ -89,7 +89,7 @@ public class Mario
 		}
 
 		// M top hits B bottom
-		else if (y >= _y + _h && prev_y < _y + _h)
+		else if (y >= (_y + _h) && prev_y < (_y + _h))
 		{
 			y = _y + _h + 1;
 		}
