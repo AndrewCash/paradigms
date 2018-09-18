@@ -95,12 +95,12 @@ class Controller implements ActionListener, MouseListener, KeyListener
 		if (c == 's')
 		{
 			System.out.println("Saving...");
-			model.marshal().save("model.json");
+			model.marshal().save("Map.json");
 		}
 		else if (c == 'l')
 		{
 			System.out.println("Loading...");
-			Json j = Json.load("model.json");
+			Json j = Json.load("Map.json");
 			model.unmarshal(j);
 		}
 	}
