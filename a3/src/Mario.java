@@ -31,16 +31,16 @@ public class Mario
 
 	boolean isColliding(int _x, int _y, int _w, int _h)
 	{
-		// Brick hitbox
-		int brick_right = _x + _w;
-		int brick_left = _x;
-		int brick_bottom = _y + _h;
-		int brick_top = _y;
+		// // Brick hitbox
+		// int brick_right = _x + _w;
+		// int brick_left = _x;
+		// int brick_bottom = _y + _h;
+		// int brick_top = _y;
 
-		if (x + w < _x){ //
+		if ((x + w) < _x) { //
 			//System.out.println("Coming from right");
 			return false;
-		}else if (x > _x + _w){
+		}else if (x > (_x + _w) && (y + h) < _y){
 			//System.out.println("Coming from left");
 			return false;
 		}else if (x + h < _h){
@@ -105,8 +105,6 @@ public class Mario
 
 	void update()
 	{
-		rememberPreviousPosition();
-
 		// Update gravity
 		vert_vel += 1.2;
 		y += vert_vel;
@@ -128,6 +126,7 @@ public class Mario
 				System.out.println("Colliding!!");
 				System.out.println("was at: (" + Integer.toString(prev_x) + "," + Integer.toString(prev_y) + ")");
 				System.out.println("is at: (" + Integer.toString(x) + "," + Integer.toString(y) + ")");
+				System.out.println("");
 
 				getOut(b.x, b.y, b.w, b.h);
 			}

@@ -59,15 +59,15 @@ class View extends JPanel
 
 		// Draw ground
 		// - put this in the model if you want to have pits
-		g.setColor(new Color(46, 247, 147));
-		g.fillRect(0, 450, 2000, 450);
+		g.setColor(new Color(188, 47, 51));
+		g.fillRect(0, 450, 2000, 30);
 
 		// Draw bricks
-		g.setColor(new Color(0, 0, 0));
+		g.setColor(new Color(178, 178, 48));
 		for (int i=0; i < model.bricks.size(); i++)
 		{
 			Brick  b = model.bricks.get(i);
-			g.drawRect(b.x - model.scrollPos, b.y, b.w, b.h);
+			g.fillRect(b.x - model.scrollPos, b.y, b.w, b.h);
 		}
 
 		// Draw Mario
@@ -79,7 +79,6 @@ class View extends JPanel
 			marioImagesIndex++;
 			marioImagesIndex = marioImagesIndex % 5;
 		}
-
 		else if (controller.keyLeft)
 		{
 			marioImagesIndex--;

@@ -124,6 +124,7 @@ class Controller implements ActionListener, MouseListener, KeyListener
 	//
 	void update()
 	{
+		// Save Mario's prevoius position
 		model.mario.rememberPreviousPosition();
 
 		if(keyRight)
