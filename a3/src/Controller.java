@@ -129,7 +129,7 @@ class Controller implements ActionListener, MouseListener, KeyListener
 		if(keyRight)
 		{
 			if (model.mario.x == 800)
-				model.scrollPos++;
+				model.scrollPos += 10;
 			else
 				model.mario.x += 10;
 		}
@@ -137,15 +137,14 @@ class Controller implements ActionListener, MouseListener, KeyListener
 		if(keyLeft)
 		{
 			if (model.mario.x == 50)
-				model.scrollPos--;
+				model.scrollPos += 10;
 			else
 				model.mario.x -= 10;
 		}
 
 		if (keySpace)
 		{
-			model.mario.jumpCounter++;
-			model.mario.vert_vel = -10;
+			model.mario.jump();
 		}
 	}
 

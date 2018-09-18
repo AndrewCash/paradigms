@@ -16,12 +16,7 @@ public class Mario
 	double vert_vel;
 	Boolean isCollision;
 	Model model;
-
-	// Mario's hitbox
-	int mario_right= x + w;
-	int mario_left = x;
-	int mario_bottom = y + h;
-	int mario_top = y;
+	int jumpCounter;
 
 	Mario(Model m)
 	{
@@ -42,17 +37,17 @@ public class Mario
 		int brick_bottom = _y + _h;
 		int brick_top = _y;
 
-		if (x + w <= brick_left){
-			//case = top;
+		if (x + w <= _x){ //
+			//System.out.println("Coming from right");
 			return false;
 		}else if (x >= _x + _w){
-			//case =
+			//System.out.println("Coming from left");
 			return false;
 		}else if (x + h <= _h){
-			//case =
+			//System.out.println("Coming from top");
 			return false;
 		}else if (y >= _y + _h){
-			//case =
+			//System.out.println("Coming from bottom");
 			return false;
 		}else
 			return true;
@@ -60,47 +55,67 @@ public class Mario
 
 	void getOut(int _x, int _y, int _w, int _h)
 	{
-		// Brick hitbox
-		int brick_right = _x + _w;
-		int brick_left = _x;
-		int brick_bottom = _y + _h;
-		int brick_top = _y;
+		// // Brick hitbox
+		// int brick_right = _x + _w;
+		// int brick_left = _x;
+		// int brick_bottom = _y + _h;
+		// int brick_top = _y;
+		//
+		// // Mario's hitbox
+		// int mario_right= x + w;
+		// int mario_left = x;
+		// int mario_bottom = y + h;
+		// int mario_top = y;
 
-		// Came from the left
-		if (mario_right >= brick_left && prev_x + w < _x)
+
+		// M right side hits B left side
+		if (x + w >= _x && prev_x + w < _x)
 		{
-			x = prev_x;
+			x = _x - w;
 		}
 
-		// Came from the right
-		else if (mario_left >= brick_right && prev_x < _x + _w)
+		// M left side hits B right side
+		else if (x <= _x + _w && prev_x > _x + _w)
 		{
-			x = prev_x;
+			x = _x + w + 10;
 		}
 
-		// Came from above
-		else if (mario_bottom <= brick_top && prev_x + h > _h)
+		// M bottom hits B top
+		if (y + h >= _y && prev_y + h > _h)
 		{
-			y = prev_y;
+			y = _y - h - 1;
+			vert_vel = 0;
+			jumpCounter = 0;
 		}
 
-		// Came from below
-		else if (mario_top >= brick_bottom && prev_y < _y + _h)
+		// M top hits B bottom
+		else if (y >= _y + _h && prev_y < _y + _h)
 		{
-			y = prev_y;
+			y = _y + _h;
 		}
 	}
 
-	void update() // (ArrayList<Brick> bricks)
+	void jump()
+	{
+		if (model.mario.jumpCounter < 5)
+			model.mario.vert_vel = -10;
+
+		model.mario.jumpCounter++;
+	}
+
+	void update()
 	{
 		rememberPreviousPosition();
 
+		// Update gravity
 		vert_vel += 1.2;
 		y += vert_vel;
 
+		// Set ground level
 		if (y > 355)
 		{
 			vert_vel = 0;
+			jumpCounter = 0;
 			y = 355;
 		}
 
@@ -111,8 +126,9 @@ public class Mario
 			if (isColliding(b.x, b.y, b.w, b.h))
 			{
 				System.out.println("Colliding!!");
-				System.out.println("was at: " + Integer.toString(prev_x));
-				System.out.println("is at: " + Integer.toString(x));
+				System.out.println("was at: (" + Integer.toString(prev_x) + "," + Integer.toString(prev_y) + ")");
+				System.out.println("is at: (" + Integer.toString(x) + "," + Integer.toString(y) + ")");
+				System.out.println("");
 
 				getOut(b.x, b.y, b.w, b.h);
 			}
