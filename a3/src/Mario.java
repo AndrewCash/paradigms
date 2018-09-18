@@ -17,6 +17,7 @@ public class Mario
 	Boolean isCollision = false;
 	Model model;
 	int jumpCounter;
+	int spaceCounter;
 
 	Mario(Model m)
 	{
@@ -37,17 +38,19 @@ public class Mario
 		// int brick_bottom = _y + _h;
 		// int brick_top = _y;
 
-		if ((x + w) < _x) { //
+		if ((x + w) <= _x) { //
 			//System.out.println("Coming from right");
 			return false;
-		}else if (x > (_x + _w) && (y + h) < _y){
+		}else if (x >= (_x + _w)){
 			//System.out.println("Coming from left");
 			return false;
-		}else if (x + h < _h){
+		}else if ((x + h) <= _h){
 			//System.out.println("Coming from top");
+			// Assume down is positive
 			return false;
-		}else if (y > _y + _h){
+		}else if (y >= (_y + _h)){
 			//System.out.println("Coming from bottom");
+			// Assume down is positive
 			return false;
 		}else
 			return true;
@@ -68,16 +71,16 @@ public class Mario
 		// int mario_top = y;
 
 
-		// M right side hits B left side
-		if ((x + w) >= _x && (prev_x + w) < _x)
+		// M left side hits B right side
+		if (x <= (_x + _w) && prev_x > (_x + _w))
 		{
-			x = _x - w - 10;
+			x += 10;
 		}
 
-		// M left side hits B right side
-		else if (x <= (_x + _w) && prev_x > (_x + _w))
+		// M right side hits B left side
+		else if ((x + w) >= _x && (prev_x + w) < _x)
 		{
-			x = _x + w + 10;
+			x += -10;
 		}
 
 		// M bottom hits B top
@@ -91,16 +94,24 @@ public class Mario
 		// M top hits B bottom
 		else if (y >= (_y + _h) && prev_y < (_y + _h))
 		{
-			y = _y + _h + 1;
+			y = _y + h + 10;
 		}
 	}
 
 	void jump()
 	{
-		if (model.mario.jumpCounter < 10)
-			model.mario.vert_vel = -10;
+		if (jumpCounter < 10)
+		{
+			if (spaceCounter < 2)
+			{
+				spaceCounter++;
+				vert_vel = -10;
+			}
+			else
+				spaceCounter = 0;
+		}
 
-		model.mario.jumpCounter++;
+		jumpCounter++;
 	}
 
 	void update()

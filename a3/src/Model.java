@@ -30,6 +30,11 @@ class Model
         bricks.add(b);
     }
 
+    void rememberPreviousPosition()
+	{
+		mario.rememberPreviousPosition();
+	}
+
     //////////////////////////
     // JSON saving and loading
 

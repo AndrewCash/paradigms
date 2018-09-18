@@ -20,10 +20,11 @@ class View extends JPanel
 	Image[] mario_images = null;
 	Image background = null;
 	int marioImagesIndex = 0;
+	int marioArraySize = 5;
 
 	View(Controller c, Model m)
 	{
-		mario_images = new Image[5];
+		mario_images = new Image[marioArraySize];
 		controller = c;
 		model = m;
 
@@ -55,7 +56,7 @@ class View extends JPanel
 		// Draw background
 		g.setColor(new Color(44, 171, 244));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		g.drawImage(this.background, -model.scrollPos/2, 0, getWidth(), getHeight(), this);
+		g.drawImage(this.background, -model.scrollPos / 2, 0, getWidth() + 500, getHeight(), this);
 
 		// Draw ground
 		// - put this in the model if you want to have pits
@@ -77,12 +78,12 @@ class View extends JPanel
 		if (controller.keyRight)
 		{
 			marioImagesIndex++;
-			marioImagesIndex = marioImagesIndex % 5;
+			marioImagesIndex = marioImagesIndex % marioArraySize;
 		}
 		else if (controller.keyLeft)
 		{
 			marioImagesIndex--;
-			marioImagesIndex = marioImagesIndex % 5;
+			marioImagesIndex = marioImagesIndex % marioArraySize;
 		}
 
 		g.drawImage(this.mario_images[Math.abs(marioImagesIndex)], model.mario.x, model.mario.y, null);
