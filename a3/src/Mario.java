@@ -37,16 +37,16 @@ public class Mario
 		int brick_bottom = _y + _h;
 		int brick_top = _y;
 
-		if (x + w <= _x){ //
+		if (x + w < _x){ //
 			//System.out.println("Coming from right");
 			return false;
-		}else if (x >= _x + _w){
+		}else if (x > _x + _w){
 			//System.out.println("Coming from left");
 			return false;
-		}else if (x + h <= _h){
+		}else if (x + h < _h){
 			//System.out.println("Coming from top");
 			return false;
-		}else if (y >= _y + _h){
+		}else if (y > _y + _h){
 			//System.out.println("Coming from bottom");
 			return false;
 		}else
@@ -71,7 +71,7 @@ public class Mario
 		// M right side hits B left side
 		if (x + w >= _x && prev_x + w < _x)
 		{
-			x = _x - w;
+			x = _x - w - 10;
 		}
 
 		// M left side hits B right side
@@ -91,7 +91,7 @@ public class Mario
 		// M top hits B bottom
 		else if (y >= _y + _h && prev_y < _y + _h)
 		{
-			y = _y + _h;
+			y = _y + _h + 1;
 		}
 	}
 
@@ -128,7 +128,6 @@ public class Mario
 				System.out.println("Colliding!!");
 				System.out.println("was at: (" + Integer.toString(prev_x) + "," + Integer.toString(prev_y) + ")");
 				System.out.println("is at: (" + Integer.toString(x) + "," + Integer.toString(y) + ")");
-				System.out.println("");
 
 				getOut(b.x, b.y, b.w, b.h);
 			}
