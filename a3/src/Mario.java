@@ -97,7 +97,7 @@ public class Mario
 
 	void jump()
 	{
-		if (model.mario.jumpCounter < 5)
+		if (model.mario.jumpCounter < 10)
 			model.mario.vert_vel = -10;
 
 		model.mario.jumpCounter++;
