@@ -38,13 +38,14 @@ public class Mario
 		// int brick_bottom = _y + _h;
 		// int brick_top = _y;
 
+										//&& y > (_y + _h)
 		if ((x + w) <= _x) { //
 			//System.out.println("Coming from right");
 			return false;
 		}else if (x >= (_x + _w)){
 			//System.out.println("Coming from left");
 			return false;
-		}else if ((x + h) <= _h){
+		}else if ((y + h) <= _y){
 			//System.out.println("Coming from top");
 			// Assume down is positive
 			return false;
@@ -74,17 +75,17 @@ public class Mario
 		// M left side hits B right side
 		if (x <= (_x + _w) && prev_x > (_x + _w))
 		{
-			x += 10;
+			x -= 10;
 		}
 
 		// M right side hits B left side
-		else if ((x + w) >= _x && (prev_x + w) < _x)
+		else if ((x + w) <= _x && (prev_x + w) < _x)
 		{
-			x += -10;
+			x -= -10;
 		}
 
 		// M bottom hits B top
-		else if ((y + h) >= _y && (prev_y + h) > _h)
+		if ((y + h) >= _y && (prev_y + h) > _h)
 		{
 			y = _y - h - 1;
 			vert_vel = 0;
@@ -94,7 +95,7 @@ public class Mario
 		// M top hits B bottom
 		else if (y >= (_y + _h) && prev_y < (_y + _h))
 		{
-			y = _y + h + 10;
+			y = _y + _h + 10;
 		}
 	}
 
