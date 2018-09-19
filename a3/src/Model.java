@@ -17,6 +17,10 @@ class Model
     {
         bricks = new ArrayList<Brick>();
         mario = new Mario(this);
+
+		System.out.println("Loading...");
+        Json j = Json.load("Map.json");
+        unmarshal(j);
     }
 
     public void update()
