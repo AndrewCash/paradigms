@@ -1,7 +1,7 @@
 // Andrew Cash
 // Programming Paradigms
 // Fall 2018
-// Assignment 3
+// Assignment 4
 
 import java.util.ArrayList;
 import java.util.Iterator;
