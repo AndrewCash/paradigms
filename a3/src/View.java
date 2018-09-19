@@ -18,6 +18,7 @@ class View extends JPanel
 	Controller controller;
 	Model model;
 	Image[] mario_images = null;
+	Boolean facingRight = true;
 	Image background = null;
 	int marioImagesIndex = 0;
 	int marioArraySize = 5;
@@ -56,20 +57,21 @@ class View extends JPanel
 		// Draw background
 		g.setColor(new Color(44, 171, 244));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		g.drawImage(this.background, -model.scrollPos - 200, 0, getWidth() + 800, getHeight(), this);
-
-		// Draw ground
-		// - put this in the model if you want to have pits
-		g.setColor(new Color(188, 47, 51));
-		g.fillRect(0, 450, 2000, 30);
+		g.drawImage(this.background, (-model.scrollPos - 200) / 2, 0,
+					getWidth() + 800, getHeight(), this);
 
 		// Draw bricks
-		g.setColor(new Color(178, 178, 48));
+		g.setColor(new Color(47, 76, 122));
 		for (int i=0; i < model.bricks.size(); i++)
 		{
 			Brick  b = model.bricks.get(i);
 			g.fillRect(b.x - model.scrollPos, b.y, b.w, b.h);
 		}
+
+		// Draw ground
+		// - put this in the model if you want to have pits
+		g.setColor(new Color(150, 149, 108));
+		g.fillRect(0, 450, 2000, 30);
 
 		// Draw Mario
 		// - determine if Mario moved left or right
@@ -79,15 +81,22 @@ class View extends JPanel
 		{
 			marioImagesIndex++;
 			marioImagesIndex = marioImagesIndex % marioArraySize;
+			facingRight = true;
 		}
 		else if (controller.keyLeft)
 		{
 			marioImagesIndex--;
 			marioImagesIndex = marioImagesIndex % marioArraySize;
+			facingRight = false;
 		}
 
-		g.drawImage(this.mario_images[Math.abs(marioImagesIndex)], model.mario.x - model.scrollPos, model.mario.y, null);
-
+		if (facingRight)
+			g.drawImage(this.mario_images[Math.abs(marioImagesIndex)],
+						model.mario.x - model.scrollPos, model.mario.y, null);
+		else
+			g.drawImage(this.mario_images[Math.abs(marioImagesIndex)],
+						model.mario.x + model.mario.w - model.scrollPos, model.mario.y,
+						-model.mario.w, model.mario.h, null);
 
 	}
 
