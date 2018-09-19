@@ -3,6 +3,9 @@
 // Fall 2018
 // Assignment 3
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Mario
 {
 	int prev_x;
@@ -35,8 +38,8 @@ public class Mario
 		// int brick_bottom = _y + _h;
 		// int brick_top = _y;
 
-										//&& y > (_y + _h)
-		if ((x + w) <= _x) { //
+
+		if ((x + w) <= _x) {
 			//System.out.println("Coming from right");
 			return false;
 		}else if (x >= (_x + _w)){
@@ -72,6 +75,7 @@ public class Mario
 		// M left side hits B right side
 		if (x <= (_x + _w) && prev_x > (_x + _w))
 		{
+			System.out.println("Hitting Right");
 			x += 10;
 			return;
 		}
@@ -79,23 +83,30 @@ public class Mario
 		// M right side hits B left side
 		else if ((x + w) >= _x && (prev_x + w) < _x)
 		{
+			System.out.println("Hitting Left");
 			x += -10;
 			return;
 		}
 
-		// M bottom hits B top
-		else if ((y + h) >= _y && (prev_y + h) > _h)
+		// M top hits B bottom
+		else if (y <= (_y + _h) && prev_y > (_y + _h))
 		{
-			y = _y - h; // y + h = _y
+			System.out.println("Hitting Bottom");
+			y += 10;
+			vert_vel += 10;
+			return;
+		}
+
+		// M bottom hits B top
+		else if ((y + h) >= _y && (prev_y + h) > _y)
+		{
+			System.out.println("Hitting Top");
+			y = _y - h + 1; // y + h = _y
 			vert_vel = 0;
 			jumpCounter = 0;
 		}
 
-		// M top hits B bottom
-		else if (y >= (_y + _h) && prev_y < (_y + _h))
-		{
-			y = _y + _h;
-		}
+
 	}
 
 	void jump()
@@ -129,20 +140,23 @@ public class Mario
 		}
 
 		// Check for collisions
-		for (int i=0; i < model.bricks.size(); i++)
+		Iterator<Brick> it = model.bricks.iterator();
+		while (it.hasNext())
 		{
-			Brick b = model.bricks.get(i);
+			Brick b = it.next();
 			if (isColliding(b.x, b.y, b.w, b.h))
 			{
 				System.out.println("Colliding!!");
 				System.out.println("was at: (" + Integer.toString(prev_x) + "," + Integer.toString(prev_y) + ")");
 				System.out.println("is at: (" + Integer.toString(x) + "," + Integer.toString(y) + ")");
-				System.out.println("");
+				System.out.println("velocity is: " + Double.toString(vert_vel));
 
 				getOut(b.x, b.y, b.w, b.h);
+
+				System.out.println("");
 			}
-			else
-				 System.out.println("");
+			// else
+			// 	 System.out.println("");
 		}
 
 	}
