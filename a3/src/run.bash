@@ -1,3 +1,4 @@
-set -e -x
 
-java Game
+./cleanup.bash
+./build.bash
+./startGame.bash

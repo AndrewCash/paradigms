@@ -37,6 +37,12 @@ public class Mario
 		// int brick_left = _x;
 		// int brick_bottom = _y + _h;
 		// int brick_top = _y;
+		//
+		// // Mario's hitbox
+		// int mario_right= x + w;
+		// int mario_left = x;
+		// int mario_bottom = y + h;
+		// int mario_top = y;
 
 
 		if ((x + w) <= _x) {
@@ -54,7 +60,10 @@ public class Mario
 			// Assume down is positive
 			return false;
 		}else
+		{
+			//System.out.println("Colliding with object");
 			return true;
+		}
 	}
 
 	void getOut(int _x, int _y, int _w, int _h)
@@ -92,8 +101,9 @@ public class Mario
 		else if (y <= (_y + _h) && prev_y > (_y + _h))
 		{
 			System.out.println("Hitting Bottom");
-			y += 10;
-			vert_vel += 10;
+			y = 0;
+			if (vert_vel < 10)
+				vert_vel += 10;
 			return;
 		}
 
@@ -111,18 +121,12 @@ public class Mario
 
 	void jump()
 	{
-		if (jumpCounter < 10)
-		{
-			if (spaceCounter < 2)
-			{
-				spaceCounter++;
-				vert_vel = -10;
-			}
-			else
-				spaceCounter = 0;
-		}
-
 		jumpCounter++;
+
+		if (vert_vel > 10)
+			return;
+		else if (jumpCounter < 10)
+				vert_vel = -10;
 	}
 
 	void update()
@@ -147,16 +151,15 @@ public class Mario
 			if (isColliding(b.x, b.y, b.w, b.h))
 			{
 				System.out.println("Colliding!!");
-				System.out.println("was at: (" + Integer.toString(prev_x) + "," + Integer.toString(prev_y) + ")");
-				System.out.println("is at: (" + Integer.toString(x) + "," + Integer.toString(y) + ")");
+				System.out.println("was at: (" + Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(x + w)+ "," + Integer.toString(y + h) + ")");
+				System.out.println("is at: (" + Integer.toString(prev_x) + "," + Integer.toString(prev_y) + "," + Integer.toString(prev_x + w)+ "," + Integer.toString(prev_y + h) + ")");
+				System.out.println("Brick is at: (" + Integer.toString(b.x) + "," + Integer.toString(b.y) + "," + Integer.toString(b.w)+ "," + Integer.toString(b.h) + ")");
 				System.out.println("velocity is: " + Double.toString(vert_vel));
 
 				getOut(b.x, b.y, b.w, b.h);
 
 				System.out.println("");
 			}
-			// else
-			// 	 System.out.println("");
 		}
 
 	}
