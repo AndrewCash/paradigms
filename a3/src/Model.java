@@ -22,6 +22,7 @@ class Model
     public void update()
     {
         mario.update();
+        scrollPos = mario.x - 200;
     }
 
     void addBrick(int x1, int y1, int x2, int y2)

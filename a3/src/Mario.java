@@ -3,8 +3,6 @@
 // Fall 2018
 // Assignment 3
 
-import java.util.ArrayList;
-
 public class Mario
 {
 	int prev_x;
@@ -14,7 +12,6 @@ public class Mario
 	int w = 60;
 	int h = 95;
 	double vert_vel;
-	Boolean isCollision = false;
 	Model model;
 	int jumpCounter;
 	int spaceCounter;
@@ -75,19 +72,21 @@ public class Mario
 		// M left side hits B right side
 		if (x <= (_x + _w) && prev_x > (_x + _w))
 		{
-			x -= 10;
+			x += 10;
+			return;
 		}
 
 		// M right side hits B left side
-		else if ((x + w) <= _x && (prev_x + w) < _x)
+		else if ((x + w) >= _x && (prev_x + w) < _x)
 		{
-			x -= -10;
+			x += -10;
+			return;
 		}
 
 		// M bottom hits B top
-		if ((y + h) >= _y && (prev_y + h) > _h)
+		else if ((y + h) >= _y && (prev_y + h) > _h)
 		{
-			y = _y - h - 1;
+			y = _y - h; // y + h = _y
 			vert_vel = 0;
 			jumpCounter = 0;
 		}
@@ -95,7 +94,7 @@ public class Mario
 		// M top hits B bottom
 		else if (y >= (_y + _h) && prev_y < (_y + _h))
 		{
-			y = _y + _h + 10;
+			y = _y + _h;
 		}
 	}
 

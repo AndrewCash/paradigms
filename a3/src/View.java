@@ -56,7 +56,7 @@ class View extends JPanel
 		// Draw background
 		g.setColor(new Color(44, 171, 244));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		g.drawImage(this.background, -model.scrollPos / 2, 0, getWidth() + 500, getHeight(), this);
+		g.drawImage(this.background, -model.scrollPos - 200, 0, getWidth() + 800, getHeight(), this);
 
 		// Draw ground
 		// - put this in the model if you want to have pits
@@ -86,7 +86,7 @@ class View extends JPanel
 			marioImagesIndex = marioImagesIndex % marioArraySize;
 		}
 
-		g.drawImage(this.mario_images[Math.abs(marioImagesIndex)], model.mario.x, model.mario.y, null);
+		g.drawImage(this.mario_images[Math.abs(marioImagesIndex)], model.mario.x - model.scrollPos, model.mario.y, null);
 
 
 	}
