@@ -98,17 +98,16 @@ public class Mario
 		}
 
 		// M top hits B bottom
-		else if (y <= (_y + _h) && prev_y > (_y + _h))
+		else if (y <= (_y + _h) && prev_y >= (_y + _h))
 		{
 			System.out.println("Hitting Bottom");
-			y = 0;
-			if (vert_vel < 10)
-				vert_vel += 10;
+			y = _y + _h + 1;
+			vert_vel = 0;
 			return;
 		}
 
 		// M bottom hits B top
-		else if ((y + h) >= _y && (prev_y + h) > _y)
+		else if ((y + h) >= _y && (prev_y + h) >= _y)
 		{
 			System.out.println("Hitting Top");
 			y = _y - h + 1; // y + h = _y
