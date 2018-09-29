@@ -2,6 +2,5 @@
 set -e -x
 
 echo "Compiling..."
-javac Game.java View.java Controller.java Model.java Json.java
-
+javac Game.java View.java Controller.java Model.java Json.java Sprite.java Brick.java Mario.java
 echo "Done."

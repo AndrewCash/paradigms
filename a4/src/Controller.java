@@ -128,10 +128,10 @@ class Controller implements ActionListener, MouseListener, KeyListener
 		model.rememberPreviousPosition();
 
 		if(keyRight)
-			model.mario.x += 10;
+			model.goRight();
 
 		if(keyLeft)
-			model.mario.x -= 10;
+			model.goLeft();
 
 		if (keySpace)
 		{

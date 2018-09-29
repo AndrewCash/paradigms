@@ -41,7 +41,7 @@ public class Game extends JFrame
 	static void testModelMarshaller()
 	{
 		Model m = new Model();
-		m.bricks.add(new Brick(400, 300, 200, 100));
+		m.sprites.add(new Brick(400, 300, 200, 100));
 
 		Json j = m.marshal();
 		j.save("testmodel.json");
