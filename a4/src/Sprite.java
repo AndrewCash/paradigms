@@ -14,9 +14,10 @@ abstract class Sprite
     double vert_vel;
     int prev_x;
     int prev_y;
+    int jumpCounter;
 
     abstract void update();
-    abstract void draw(Graphics g);
+    abstract void draw(Graphics g, Model m);
 
     boolean am_I_a_Brick() { return false; }
 

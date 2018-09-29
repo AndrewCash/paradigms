@@ -3,10 +3,12 @@
 // Fall 2018
 // Assignment 4
 
+import java.util.Iterator;
+import java.awt.Graphics;
+
 class Mario extends Sprite
 {
 	Model model;
-	int jumpCounter;
 	int spaceCounter;
 	boolean facingRight = true;
 
@@ -47,13 +49,13 @@ class Mario extends Sprite
 		vert_vel += 1.2;
 		y += vert_vel;
 
-		// Set ground level
-		if (y > 355)
-		{
-			vert_vel = 0;
-			jumpCounter = 0;
-			y = 355;
-		}
+		 //Set ground level
+		 if (y > 355)
+		 {
+		 	vert_vel = 0;
+		 	jumpCounter = 0;
+		 	y = 355;
+		 }
 
 		// Check for collisions with bricks
 		Iterator<Sprite> it = model.sprites.iterator();
@@ -77,6 +79,11 @@ class Mario extends Sprite
     			}
             }
 		}
+	}
+
+	void draw(Graphics g, Model m)
+	{
+
 	}
 
     boolean am_I_a_Brick()

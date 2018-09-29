@@ -71,7 +71,7 @@ class View extends JPanel
 		for (int i=0; i < model.sprites.size(); i++)
 		{
 			Sprite s = model.sprites.get(i);
-			s.draw(g);
+			s.draw(g, model);
 		}
 
 		// Draw Mario

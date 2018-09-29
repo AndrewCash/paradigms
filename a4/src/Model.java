@@ -41,6 +41,8 @@ class Model
                 Sprite s = sprites.get(i);
                 s.update();
         }
+
+        mario.update();
     }
 
     void addBrick(int x1, int y1, int x2, int y2)
