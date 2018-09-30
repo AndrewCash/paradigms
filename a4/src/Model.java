@@ -19,18 +19,20 @@ class Model
         sprites = new ArrayList<Sprite>();
         mario = new Mario(this);
 
-		System.out.println("Loading...");
-        Json j = Json.load("Map.json");
-        unmarshal(j);
+		// System.out.println("Loading...");
+        // Json j = Json.load("Map.json");
+        // unmarshal(j);
     }
 
     void goRight()
     {
+        mario.facingRight = true;
         mario.x += 10;
     }
 
     void goLeft()
     {
+        mario.facingRight = false;
         mario.x -= 10;
     }
 
@@ -38,8 +40,16 @@ class Model
     {
         for (int i=0; i < sprites.size(); i++)
         {
-                Sprite s = sprites.get(i);
-                s.update();
+            Sprite s = sprites.get(i);
+            s.update();
+
+            if (s.jumpCounter > 50)
+            {
+                // Decrement i so that the next spite is not skipped over
+                // this could be handled by Iterator class
+                sprites.remove(i);
+                i--;
+            }
         }
 
         mario.update();
@@ -49,6 +59,18 @@ class Model
     {
         Brick b = new Brick(x1, y1, x2, y2);
         sprites.add(b);
+    }
+
+    void addCoinBlock(int x, int y)
+    {
+        CoinBlock cb = new CoinBlock(x, y, this);
+        sprites.add(cb);
+    }
+
+    void addCoin(int x, int y)
+    {
+        Coin c = new Coin(x, y);
+        sprites.add(c);
     }
 
     void rememberPreviousPosition()
@@ -89,8 +111,10 @@ class Model
             String s = j.getString("type");
             if (s.equals("Mario"))
                 sprites.add(new Mario(j));
-            else
+            else if (s.equals("Brick"))
                 sprites.add(new Brick(j));
+            else if (s.equals("CoinBlock"))
+                sprites.add(new CoinBlock(j));
         }
 
     }

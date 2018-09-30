@@ -28,7 +28,7 @@ class Brick extends Sprite
     {
     }
 
-    void draw(Graphics g, Model m)
+    void draw(Graphics g, Model m, View v)
     {
         g.setColor(new Color(47, 76, 122));
         g.fillRect(this.x - m.scrollPos, this.y, this.w, this.h);

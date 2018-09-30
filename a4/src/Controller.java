@@ -64,18 +64,17 @@ class Controller implements ActionListener, MouseListener, KeyListener
 		int left = Math.min(x1, x2);
 		int right = Math.max(x1, x2);
 
-		model.addBrick(left + model.scrollPos, top, right - left, bottom - top);
+		// If mouse is dragged add a brick
+		if (x1 != x2)
+			model.addBrick(left + model.scrollPos, top, right - left, bottom - top);
+		// Else add a Coin Block
+		else
+			model.addCoinBlock(left + model.scrollPos, top);
 	}
 
 	public void mouseEntered(MouseEvent e) {    }
 	public void mouseExited(MouseEvent e) {    }
-	public void mouseClicked(MouseEvent e)
-	{
-		if(e.getY() < 100)
-		{
-			System.out.println("break here");
-		}
-	}
+	public void mouseClicked(MouseEvent e) {    }
 
 	///////////////////////
 	// Keyboard Events
@@ -133,7 +132,7 @@ class Controller implements ActionListener, MouseListener, KeyListener
 		if(keyLeft)
 			model.goLeft();
 
-		if (keySpace)
+		if (keySpace || keyUp)
 		{
 			model.mario.jump();
 		}

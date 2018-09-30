@@ -12,14 +12,18 @@ abstract class Sprite
     int w;
     int h;
     double vert_vel;
+    double horz_vel;
     int prev_x;
     int prev_y;
     int jumpCounter;
+    boolean onObject;
+    boolean hittingBottom;
 
     abstract void update();
-    abstract void draw(Graphics g, Model m);
+    abstract void draw(Graphics g, Model m, View v);
 
     boolean am_I_a_Brick() { return false; }
+    boolean am_I_a_CoinBlock() {return false; }
 
     //////////////////////////
     // Collison Detection
@@ -62,6 +66,7 @@ abstract class Sprite
 		}else if ((y + h) <= _y){
 			//System.out.println("Coming from top");
 			// Assume down is positive
+            a.onObject = false;
 			return false;
 		}else if (y >= (_y + _h)){
 			//System.out.println("Coming from bottom");
@@ -76,15 +81,6 @@ abstract class Sprite
 
 	void getOut(Sprite a, Sprite b)
 	{
-        int x = a.x;
-        int y = a.y;
-        int w = a.w;
-        int h = a.h;
-        int _x = b.x;
-        int _y = b.y;
-        int _w = b.w;
-        int _h = b.h;
-
 		// // Brick hitbox
 		// int brick_right = _x + _w;
 		// int brick_left = _x;
@@ -99,7 +95,7 @@ abstract class Sprite
 
 
 		// M left side hits B right side
-		if (x <= (_x + _w) && prev_x > (_x + _w))
+		if (a.x <= (b.x + b.w) && a.prev_x > (b.x + b.w))
 		{
 			System.out.println("Hitting Right");
 			a.x += 10;
@@ -107,7 +103,7 @@ abstract class Sprite
 		}
 
 		// M right side hits B left side
-		else if ((x + w) >= _x && (prev_x + w) < _x)
+		else if ((a.x + a.w) >= b.x && (a.prev_x + a.w) < b.x)
 		{
 			System.out.println("Hitting Left");
 			a.x += -10;
@@ -115,21 +111,31 @@ abstract class Sprite
 		}
 
 		// M top hits B bottom
-		else if (y <= (_y + _h) && prev_y >= (_y + _h))
+		else if (a.y <= (b.y + b.h) && a.prev_y >= (b.y + b.h))
 		{
 			System.out.println("Hitting Bottom");
-			y = _y + _h + 1;
-			a.vert_vel = 0;
+			a.y = b.y + b.h + 1;
+			a.vert_vel = 0.0;
+            a.onObject = true;
+
+            if (b.am_I_a_CoinBlock())
+            {
+                Coin c = new Coin(b.x, b.y);
+                b.hittingBottom = true;
+            }
+
 			return;
 		}
 
 		// M bottom hits B top
-		else if ((y + h) >= _y && (prev_y + h) >= _y)
+		else if ((a.y + a.h) >= b.y && (a.prev_y + a.h) >= b.y)
 		{
 			System.out.println("Hitting Top");
-			y = _y - h + 1; // y + h = _y
-			a.vert_vel = 0;
+			a.y = b.y - a.h + 1; // y + h = _y
+			a.vert_vel = 0.0;
 			a.jumpCounter = 0;
+
+            //b.hittingBottom = false;
 		}
 
 

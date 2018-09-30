@@ -19,6 +19,9 @@ class View extends JPanel
 	Model model;
 	Image[] mario_images = null;
 	Image background = null;
+	Image fullBlock = null;
+	Image emptyBlock = null;
+	Image coin = null;
 	int marioImagesIndex = 0;
 	int marioArraySize = 5;
 
@@ -39,6 +42,9 @@ class View extends JPanel
 				mario_images[3] = ImageIO.read(new File("images/mario4.png"));
 				mario_images[4] = ImageIO.read(new File("images/mario5.png"));
 				background = ImageIO.read(new File("images/background.jpg"));
+				fullBlock = ImageIO.read(new File("images/block1.png"));
+				emptyBlock = ImageIO.read(new File("images/block2.png"));
+				coin = ImageIO.read(new File("images/coin.png"));
 
 			}	catch(Exception e) {
 					e.printStackTrace(System.err);
@@ -63,7 +69,9 @@ class View extends JPanel
 		/////////// NOT NECESSARY ///////////////////////////////
 		// - put this in the model if you want to have pits
 		g.setColor(new Color(150, 149, 108));
+
 		g.fillRect(0, 450, 2000, 30);
+		model.addBrick(0, 450, 2000, 30);
 		/////////////////////////////////////////////////////////
 
 
@@ -71,33 +79,11 @@ class View extends JPanel
 		for (int i=0; i < model.sprites.size(); i++)
 		{
 			Sprite s = model.sprites.get(i);
-			s.draw(g, model);
+			s.draw(g, model, this);
 		}
 
 		// Draw Mario
-		// - determine if Mario moved left or right
-		// - increment or decrement array of Mario images
-		// - draw Mario image
-		if (controller.keyRight)
-		{
-			marioImagesIndex++;
-			marioImagesIndex = marioImagesIndex % marioArraySize;
-			model.mario.facingRight = true;
-		}
-		else if (controller.keyLeft)
-		{
-			marioImagesIndex--;
-			marioImagesIndex = marioImagesIndex % marioArraySize;
-			model.mario.facingRight = false;
-		}
-
-		if (model.mario.facingRight)
-			g.drawImage(this.mario_images[Math.abs(marioImagesIndex)],
-						model.mario.x - model.scrollPos, model.mario.y, null);
-		else
-			g.drawImage(this.mario_images[Math.abs(marioImagesIndex)],
-						model.mario.x + model.mario.w - model.scrollPos, model.mario.y,
-						-model.mario.w, model.mario.h, null);
+		model.mario.draw(g, model, this);
 
 	}
 
