@@ -1,1 +1,1 @@
-{"sprites":[{"x":276,"y":311,"w":157,"h":140, "type": "Brick"}]}
+{"sprites":[{"type":"Mario","x":150,"y":325,"w":60,"h":95,"vert_vel":0.0},{"type":"Brick","x":107,"y":419,"w":207,"h":20,"vert_vel":0.0,"horz_vel":0.0}]}
