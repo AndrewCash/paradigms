@@ -15,21 +15,40 @@ class Mario extends Sprite
 
 	Mario(Model m)
 	{
+		type = "Mario";
 		model = m;
 		onObject = true;
 
         x = 100;
+		y = 0;
         w = 60;
         h = 95;
 	}
 
-	Mario (Json obj)
+	// Unmarshaling constructor
+	Mario (Json obj, Model m)
 	{
+		type = "Mario";
+		model = m;
+		onObject = true;
+
         x = (int)obj.getLong("x");
         y = (int)obj.getLong("y");
-        w = (int)obj.getLong("w");
-        h = (int)obj.getLong("h");
-		vert_vel = (double)obj.getLong("vert_vel");
+		w = (int)obj.getLong("w");
+		h = (int)obj.getLong("h");
+		vert_vel = obj.getDouble("vert_vel");
+    }
+
+	Json marshal()
+    {
+        Json ob = Json.newObject();
+        ob.add("type", type);
+        ob.add("x", x);
+        ob.add("y", y);
+		ob.add("w", w);
+		ob.add("h", h);
+        ob.add("vert_vel", vert_vel);
+        return ob;
     }
 
 	void jump()
@@ -62,18 +81,22 @@ class Mario extends Sprite
 		{
 			Sprite s = it.next();
 
-            if (isColliding(this, s))
+			if (!s.am_I_a_Mario())
 			{
-				// System.out.println("Colliding!!");
-				// System.out.println("was at: (" + Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(x + w)+ "," + Integer.toString(y + h) + ")");
-				// System.out.println("is at: (" + Integer.toString(prev_x) + "," + Integer.toString(prev_y) + "," + Integer.toString(prev_x + w)+ "," + Integer.toString(prev_y + h) + ")");
-				// System.out.println("Brick is at: (" + Integer.toString(b.x) + "," + Integer.toString(b.y) + "," + Integer.toString(b.w)+ "," + Integer.toString(b.h) + ")");
-				// System.out.println("velocity is: " + Double.toString(vert_vel));
+				if (isColliding(this, s))
+				{
+					// System.out.println("Colliding!!");
+					// System.out.println("was at: (" + Integer.toString(x) + "," + Integer.toString(y) + "," + Integer.toString(x + w)+ "," + Integer.toString(y + h) + ")");
+					// System.out.println("is at: (" + Integer.toString(prev_x) + "," + Integer.toString(prev_y) + "," + Integer.toString(prev_x + w)+ "," + Integer.toString(prev_y + h) + ")");
+					// System.out.println("Brick is at: (" + Integer.toString(b.x) + "," + Integer.toString(b.y) + "," + Integer.toString(b.w)+ "," + Integer.toString(b.h) + ")");
+					// System.out.println("velocity is: " + Double.toString(vert_vel));
 
-				getOut(this, s);
+					getOut(this, s);
 
-				// System.out.println("");
+					// System.out.println("");
+				}
 			}
+
 		}
 	}
 
@@ -105,8 +128,8 @@ class Mario extends Sprite
 						-model.mario.w, model.mario.h, null);
 	}
 
-    boolean am_I_a_Brick()
+    boolean am_I_a_Mario()
     {
-        return false;
+        return true;
     }
 }

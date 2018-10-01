@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
 
+
 class Model
 {
     int scrollPos;
@@ -18,6 +19,8 @@ class Model
     {
         sprites = new ArrayList<Sprite>();
         mario = new Mario(this);
+
+        sprites.add(mario);
 
 		// System.out.println("Loading...");
         // Json j = Json.load("Map.json");
@@ -43,7 +46,16 @@ class Model
             Sprite s = sprites.get(i);
             s.update();
 
-            if (s.jumpCounter > 50)
+            if (s.jumpCounter > 50 ||
+               (s.am_I_a_Coin() && s.y > (480 - s.h)) ) // Coin goes off screen
+            {
+                // Decrement i so that the next spite is not skipped over
+                // this could be handled by Iterator class
+                sprites.remove(i);
+                i--;
+            }
+
+            if (s.am_I_a_Coin() && s.touchedMario == true) // Mario grabs coin
             {
                 // Decrement i so that the next spite is not skipped over
                 // this could be handled by Iterator class
@@ -54,6 +66,10 @@ class Model
 
         mario.update();
     }
+
+    /////////////////////////////////////////////////////////////
+    // Methods to add various sprites
+    /////////////////////////////////
 
     void addBrick(int x1, int y1, int x2, int y2)
     {
@@ -84,21 +100,19 @@ class Model
 
     Json marshal()
     {
-        Json jsonObject = Json.newObject();
-        Json jsonBricks = Json.newList();
+        Json jsonModel = Json.newObject();
+        Json jsonSprites = Json.newList();
 
-        // Add bricks object to model object
-        jsonObject.add("sprites", jsonBricks);
+        // Add sprites object to model object
+        jsonModel.add("sprites", jsonSprites);
 
-        // Run through model and add to jsonBricks list
+        // Run through model and add to jsonSprites list
         for(int i = 0; i < sprites.size(); i++)
         {
-            Sprite spr = sprites.get(i);
-            Json j = spr.marshal();
-            jsonBricks.add(j);
+            jsonSprites.add(sprites.get(i).marshal());
         }
 
-        return jsonObject;
+        return jsonModel;
     }
 
     void unmarshal(Json obj)
@@ -109,13 +123,16 @@ class Model
         {
             Json j = jsonList.get(i);
             String s = j.getString("type");
-            if (s.equals("Mario"))
-                sprites.add(new Mario(j));
-            else if (s.equals("Brick"))
+            if (s.equals("Brick"))
                 sprites.add(new Brick(j));
             else if (s.equals("CoinBlock"))
-                sprites.add(new CoinBlock(j));
+                sprites.add(new CoinBlock(j, this));
+            else if (s.equals("Coin"))
+                sprites.add(new Coin(j));
+            else if (s.equals("Mario"))
+                sprites.add(new Mario(j, this));
         }
+
 
     }
 

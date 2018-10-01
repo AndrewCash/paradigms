@@ -65,16 +65,6 @@ class View extends JPanel
 		g.drawImage(this.background, (-model.scrollPos - 200) / 2, 0,
 					getWidth() + 800, getHeight(), this);
 
-		// Draw ground
-		/////////// NOT NECESSARY ///////////////////////////////
-		// - put this in the model if you want to have pits
-		g.setColor(new Color(150, 149, 108));
-
-		g.fillRect(0, 450, 2000, 30);
-		model.addBrick(0, 450, 2000, 30);
-		/////////////////////////////////////////////////////////
-
-
 		// Draw sprites
 		for (int i=0; i < model.sprites.size(); i++)
 		{

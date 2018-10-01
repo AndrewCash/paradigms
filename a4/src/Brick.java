@@ -10,12 +10,14 @@ class Brick extends Sprite
 {
     Brick(int _x, int _y, int _w, int _h)
     {
+        type = "Brick";
         x = _x;
         y = _y;
         w = _w;
         h = _h;
     }
 
+    // Unmarshaling constructor
     Brick (Json obj)
     {
         x = (int)obj.getLong("x");
@@ -30,7 +32,7 @@ class Brick extends Sprite
 
     void draw(Graphics g, Model m, View v)
     {
-        g.setColor(new Color(47, 76, 122));
+        g.setColor(new Color(47, 122, 88));
         g.fillRect(this.x - m.scrollPos, this.y, this.w, this.h);
     }
 

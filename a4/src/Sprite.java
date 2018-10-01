@@ -7,6 +7,7 @@ import java.awt.Graphics;
 
 abstract class Sprite
 {
+    String type;
     int x;
     int y;
     int w;
@@ -18,12 +19,15 @@ abstract class Sprite
     int jumpCounter;
     boolean onObject;
     boolean hittingBottom;
+    boolean touchedMario;
 
     abstract void update();
     abstract void draw(Graphics g, Model m, View v);
 
     boolean am_I_a_Brick() { return false; }
-    boolean am_I_a_CoinBlock() {return false; }
+    boolean am_I_a_CoinBlock() { return false; }
+    boolean am_I_a_Coin() { return false; }
+    boolean am_I_a_Mario() { return false; }
 
     //////////////////////////
     // Collison Detection
@@ -93,11 +97,16 @@ abstract class Sprite
 		// int mario_bottom = y + h;
 		// int mario_top = y;
 
+        if (b.am_I_a_Coin() == true)
+        {
+            b.touchedMario = true;
+            return;
+        }
 
 		// M left side hits B right side
 		if (a.x <= (b.x + b.w) && a.prev_x > (b.x + b.w))
 		{
-			System.out.println("Hitting Right");
+			//System.out.println("Hitting Right");
 			a.x += 10;
 			return;
 		}
@@ -105,7 +114,7 @@ abstract class Sprite
 		// M right side hits B left side
 		else if ((a.x + a.w) >= b.x && (a.prev_x + a.w) < b.x)
 		{
-			System.out.println("Hitting Left");
+			//System.out.println("Hitting Left");
 			a.x += -10;
 			return;
 		}
@@ -113,10 +122,10 @@ abstract class Sprite
 		// M top hits B bottom
 		else if (a.y <= (b.y + b.h) && a.prev_y >= (b.y + b.h))
 		{
-			System.out.println("Hitting Bottom");
+			//System.out.println("Hitting Bottom");
 			a.y = b.y + b.h + 1;
 			a.vert_vel = 0.0;
-            a.onObject = true;
+            //a.onObject = true;
 
             if (b.am_I_a_CoinBlock())
             {
@@ -130,12 +139,12 @@ abstract class Sprite
 		// M bottom hits B top
 		else if ((a.y + a.h) >= b.y && (a.prev_y + a.h) >= b.y)
 		{
-			System.out.println("Hitting Top");
+			//System.out.println("Hitting Top");
 			a.y = b.y - a.h + 1; // y + h = _y
 			a.vert_vel = 0.0;
 			a.jumpCounter = 0;
 
-            //b.hittingBottom = false;
+            b.onObject = true;
 		}
 
 
@@ -144,11 +153,14 @@ abstract class Sprite
     Json marshal()
     {
         Json ob = Json.newObject();
+        ob.add("type", type);
         ob.add("x", x);
         ob.add("y", y);
         ob.add("w", w);
         ob.add("h", h);
         ob.add("vert_vel", vert_vel);
+        ob.add("horz_vel", horz_vel);
         return ob;
     }
+
 }

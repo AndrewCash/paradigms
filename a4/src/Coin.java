@@ -14,6 +14,7 @@ class Coin extends Sprite
 
     Coin(int _x, int _y)
     {
+        type = "Coin";
         x = _x;
         y = _y;
         w = 75;
@@ -23,13 +24,20 @@ class Coin extends Sprite
         double d = rand.nextDouble() * 16 - 8;
         double e = rand.nextDouble() * 16 - 8;
         horz_vel = d;
-        vert_vel = -Math.abs(e);
+        vert_vel = -(3 + Math.abs(e));
     }
 
+    // Unmarshaling constructor
     Coin(Json obj)
     {
+        type = "Coin";
         x = (int)obj.getLong("x");
         y = (int)obj.getLong("y");
+        w = (int)obj.getLong("w");
+        h = (int)obj.getLong("h");
+        horz_vel = (double)obj.getLong("horz_vel");
+        vert_vel = (double)obj.getLong("vert_vel");
+
     }
 
     void update()
@@ -45,6 +53,11 @@ class Coin extends Sprite
     {
         g.drawImage(view.coin, this.x - model.scrollPos, this.y, null);
     }
+
+    boolean am_I_a_Coin()
+    {
+        return true;
+    }
 }
 
 class CoinBlock extends Sprite
@@ -54,6 +67,7 @@ class CoinBlock extends Sprite
 
     CoinBlock(int _x, int _y, Model m)
     {
+        type = "CoinBlock";
         x = _x;
         y = _y;
         w = 89;
@@ -61,10 +75,15 @@ class CoinBlock extends Sprite
         model = m;
     }
 
-    CoinBlock(Json obj)
+    // Unmarshaling constructor
+    CoinBlock(Json obj, Model m)
     {
         x = (int)obj.getLong("x");
         y = (int)obj.getLong("y");
+        w = 89;
+        h = 83;
+
+        model = m;
     }
 
     void update()
@@ -72,10 +91,11 @@ class CoinBlock extends Sprite
         if (hittingBottom && numCoinsReleased < 5)
         {
             numCoinsReleased++;
-            System.out.println("aaaaaaaaaaaaaa");
+            //System.out.println("aaaaaaa");
             hittingBottom = false;
 
             model.addCoin(x, y - 75);
+            //onObject = true;
         }
 
     }
