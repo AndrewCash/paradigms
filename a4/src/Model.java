@@ -7,13 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
 
-
 class Model
 {
     int scrollPos;
     ArrayList<Sprite> sprites;
     Mario mario;
     boolean isCollision = false;
+
+    MySoundClip coinGet;
+
+
 
     Model()
     {
@@ -25,6 +28,15 @@ class Model
 		// System.out.println("Loading...");
         // Json j = Json.load("Map.json");
         // unmarshal(j);
+
+        try
+        {
+            MySoundClip coinGet = new MySoundClip("sounds/coinGet.wav", 4);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace(System.err);
+        }
     }
 
     void goRight()

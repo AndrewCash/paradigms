@@ -20,6 +20,7 @@ abstract class Sprite
     boolean onObject;
     boolean hittingBottom;
     boolean touchedMario;
+    Sounds soundEffects;
 
     abstract void update();
     abstract void draw(Graphics g, Model m, View v);
@@ -131,6 +132,7 @@ abstract class Sprite
             {
                 Coin c = new Coin(b.x, b.y);
                 b.hittingBottom = true;
+                b.soundEffects.playCoinSound();
             }
 
 			return;

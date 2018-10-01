@@ -73,6 +73,7 @@ class CoinBlock extends Sprite
         w = 89;
         h = 83;
         model = m;
+        soundEffects = new Sounds();
     }
 
     // Unmarshaling constructor
