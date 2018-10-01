@@ -37,6 +37,7 @@ class Coin extends Sprite
         h = (int)obj.getLong("h");
         horz_vel = (double)obj.getLong("horz_vel");
         vert_vel = (double)obj.getLong("vert_vel");
+        coinCounter = (int)obj.getLong("coinCounter");
 
     }
 
@@ -83,15 +84,16 @@ class CoinBlock extends Sprite
         y = (int)obj.getLong("y");
         w = 89;
         h = 83;
+        coinCounter = (int)obj.getLong("coinCounter");
 
         model = m;
     }
 
     void update()
     {
-        if (hittingBottom && numCoinsReleased < 5)
+        if (hittingBottom && coinCounter < 5)
         {
-            numCoinsReleased++;
+            coinCounter++;
             //System.out.println("aaaaaaa");
             hittingBottom = false;
 
@@ -113,6 +115,5 @@ class CoinBlock extends Sprite
     {
         return true;
     }
-
 
 }

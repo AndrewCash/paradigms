@@ -17,6 +17,7 @@ abstract class Sprite
     int prev_x;
     int prev_y;
     int jumpCounter;
+    int coinCounter;
     boolean onObject;
     boolean hittingBottom;
     boolean touchedMario;
@@ -162,6 +163,7 @@ abstract class Sprite
         ob.add("h", h);
         ob.add("vert_vel", vert_vel);
         ob.add("horz_vel", horz_vel);
+        ob.add("coinCounter", coinCounter);
         return ob;
     }
 

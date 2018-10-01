@@ -37,6 +37,7 @@ class Mario extends Sprite
 		w = (int)obj.getLong("w");
 		h = (int)obj.getLong("h");
 		vert_vel = obj.getDouble("vert_vel");
+		coinCounter = (int)obj.getLong("coinCounter");
     }
 
 	Json marshal()
@@ -48,6 +49,7 @@ class Mario extends Sprite
 		ob.add("w", w);
 		ob.add("h", h);
         ob.add("vert_vel", vert_vel);
+		ob.add("coinCounter", coinCounter);
         return ob;
     }
 

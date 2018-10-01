@@ -14,10 +14,6 @@ class Model
     Mario mario;
     boolean isCollision = false;
 
-    MySoundClip coinGet;
-
-
-
     Model()
     {
         sprites = new ArrayList<Sprite>();
@@ -29,14 +25,6 @@ class Model
         // Json j = Json.load("Map.json");
         // unmarshal(j);
 
-        try
-        {
-            MySoundClip coinGet = new MySoundClip("sounds/coinGet.wav", 4);
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace(System.err);
-        }
     }
 
     void goRight()
@@ -59,7 +47,7 @@ class Model
             s.update();
 
             if (s.jumpCounter > 50 ||
-               (s.am_I_a_Coin() && s.y > (480 - s.h)) ) // Coin goes off screen
+               (s.am_I_a_Coin() && s.isColliding(s, mario)) ) // Coin goes off screen
             {
                 // Decrement i so that the next spite is not skipped over
                 // this could be handled by Iterator class
@@ -71,6 +59,10 @@ class Model
             {
                 // Decrement i so that the next spite is not skipped over
                 // this could be handled by Iterator class
+                s.coinCounter++;
+                System.out.println(s.coinCounter);
+                mario.coinCounter++;
+
                 sprites.remove(i);
                 i--;
             }
