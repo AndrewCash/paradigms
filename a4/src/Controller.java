@@ -21,6 +21,7 @@ class Controller implements ActionListener, MouseListener, KeyListener
 	boolean keyUp;
 	boolean keyDown;
 	boolean keySpace;
+	boolean mapEditor = false;
 
 	int mouseDownX;
 	int mouseDownY;
@@ -56,22 +57,26 @@ class Controller implements ActionListener, MouseListener, KeyListener
 
 	public void mouseReleased(MouseEvent e)
 	{
-		int x1 = mouseDownX;
-		int x2 = e.getX();
-		int y1 = mouseDownY;
-		int y2 = e.getY();
+		if (mapEditor)
+		{
+			int x1 = mouseDownX;
+			int x2 = e.getX();
+			int y1 = mouseDownY;
+			int y2 = e.getY();
 
-		int top = Math.min(y1,y2);
-		int bottom = Math.max(y1, y2);
-		int left = Math.min(x1, x2);
-		int right = Math.max(x1, x2);
+			int top = Math.min(y1,y2);
+			int bottom = Math.max(y1, y2);
+			int left = Math.min(x1, x2);
+			int right = Math.max(x1, x2);
 
-		// If mouse is dragged add a brick
-		if (x1 != x2)
-			model.addBrick(left + model.scrollPos, top, right - left, bottom - top);
-		// Else add a Coin Block
-		else
-			model.addCoinBlock(left + model.scrollPos, top);
+			// If mouse is dragged add a brick
+			if (x1 != x2)
+				model.addBrick(left + model.scrollPos, top, right - left, bottom - top);
+			// Else add a Coin Block
+			else
+				model.addCoinBlock(left + model.scrollPos, top);
+		}
+
 	}
 
 	public void mouseEntered(MouseEvent e) {    }
@@ -92,19 +97,23 @@ class Controller implements ActionListener, MouseListener, KeyListener
 			case KeyEvent.VK_SPACE: keySpace = true; break;
 		}
 
-		char c = e.getKeyChar();
-		if (c == 's')
+		if (mapEditor)
 		{
-			System.out.println("Saving...");
-			Json j = model.marshal();
-			j.save("Map.json");
-			//model.marshal().save("Map.json");
-		}
-		else if (c == 'l')
-		{
-			System.out.println("Loading...");
-			Json j = Json.load("Map.json");
-			model.unmarshal(j);
+			char c = e.getKeyChar();
+			if (c == 's')
+			{
+				System.out.println("Saving...");
+				Json j = model.marshal();
+				j.save("Map.json");
+				//model.marshal().save("Map.json");
+			}
+			else if (c == 'l')
+			{
+				System.out.println("Loading...");
+				Json j = Json.load("Map.json");
+				model.unmarshal(j);
+			}
+
 		}
 	}
 

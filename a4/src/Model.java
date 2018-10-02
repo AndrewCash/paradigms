@@ -142,14 +142,14 @@ class Model
         {
             Json j = jsonList.get(i);
             String s = j.getString("type");
-            if (s.equals("Brick"))
+            if (s.equals("Mario"))
+                sprites.add(new Mario(j, this));
+            else if (s.equals("Brick"))
                 sprites.add(new Brick(j));
             else if (s.equals("CoinBlock"))
                 sprites.add(new CoinBlock(j, this));
             else if (s.equals("Coin"))
                 sprites.add(new Coin(j));
-            else if (s.equals("Mario"))
-                sprites.add(new Mario(j, this));
         }
 
 

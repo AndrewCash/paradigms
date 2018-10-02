@@ -32,6 +32,7 @@ class Mario extends Sprite
 		type = "Mario";
 		model = m;
 		onObject = true;
+		facingRight = true;
 
         x = (int)obj.getLong("x");
         y = (int)obj.getLong("y");
@@ -102,7 +103,7 @@ class Mario extends Sprite
 			view.marioImagesIndex++;
 			view.marioImagesIndex = view.marioImagesIndex % view.marioArraySize;
 		}
-		else if (!facingRight && view.controller.keyLeft)
+		else if (view.controller.keyLeft)
 		{
 			view.marioImagesIndex--;
 			view.marioImagesIndex = view.marioImagesIndex % view.marioArraySize;
