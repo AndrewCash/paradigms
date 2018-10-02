@@ -11,6 +11,7 @@ import java.lang.Math;
 class Coin extends Sprite
 {
     static Random rand = new Random();
+    int lifeCounter;
 
     Coin(int _x, int _y)
     {
@@ -35,10 +36,9 @@ class Coin extends Sprite
         y = (int)obj.getLong("y");
         w = (int)obj.getLong("w");
         h = (int)obj.getLong("h");
-        horz_vel = (double)obj.getLong("horz_vel");
-        vert_vel = (double)obj.getLong("vert_vel");
+        horz_vel = obj.getDouble("horz_vel");
+        vert_vel = obj.getDouble("vert_vel");
         coinCounter = (int)obj.getLong("coinCounter");
-
     }
 
     void update()
@@ -46,8 +46,8 @@ class Coin extends Sprite
         // Update gravity
 		vert_vel += 1.2;
         y += vert_vel;
-
         x += horz_vel;
+
     }
 
     void draw(Graphics g, Model model, View view)
@@ -80,11 +80,13 @@ class CoinBlock extends Sprite
     // Unmarshaling constructor
     CoinBlock(Json obj, Model m)
     {
+        type = "CoinBlock";
         x = (int)obj.getLong("x");
         y = (int)obj.getLong("y");
-        w = 89;
-        h = 83;
+        w = (int)obj.getLong("w");
+        h = (int)obj.getLong("h");
         coinCounter = (int)obj.getLong("coinCounter");
+        soundEffects = new Sounds();
 
         model = m;
     }
@@ -97,15 +99,32 @@ class CoinBlock extends Sprite
             //System.out.println("aaaaaaa");
             hittingBottom = false;
 
-            model.addCoin(x, y - 75);
+            model.sprites.add(new Coin(x, y - 75));
+
             //onObject = true;
         }
+
+        // // Check for collisions with bricks
+		// Iterator<Coins> it = model.coins.iterator();
+		// while (it.hasNext())
+		// {
+		// 	Sprite s = it.next();
+        //
+		// 	if (!s.am_I_a_Coin())
+		// 	{
+		// 		if (isColliding(this, s))
+		// 		{
+        //
+		// 		}
+		// 	}
+        //
+		// }
 
     }
 
     void draw(Graphics g, Model model, View view)
     {
-        if (numCoinsReleased < 5)
+        if (coinCounter < 5)
             g.drawImage(view.fullBlock, this.x - model.scrollPos, this.y, null);
         else
             g.drawImage(view.emptyBlock, this.x - model.scrollPos, this.y, null);

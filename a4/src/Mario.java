@@ -11,13 +11,14 @@ class Mario extends Sprite
 {
 	Model model;
 	int spaceCounter;
-	boolean facingRight = true;
+	boolean facingRight;
 
 	Mario(Model m)
 	{
 		type = "Mario";
 		model = m;
 		onObject = true;
+		facingRight = true;
 
         x = 100;
 		y = 0;
@@ -40,19 +41,6 @@ class Mario extends Sprite
 		coinCounter = (int)obj.getLong("coinCounter");
     }
 
-	Json marshal()
-    {
-        Json ob = Json.newObject();
-        ob.add("type", type);
-        ob.add("x", x);
-        ob.add("y", y);
-		ob.add("w", w);
-		ob.add("h", h);
-        ob.add("vert_vel", vert_vel);
-		ob.add("coinCounter", coinCounter);
-        return ob;
-    }
-
 	void jump()
 	{
 		jumpCounter++;
@@ -73,7 +61,7 @@ class Mario extends Sprite
 		// Update gravity
 		if (onObject)
 			vert_vel = 0;
-		else
+		else if (vert_vel < 20)
 			vert_vel += 1.2;
 		y += vert_vel;
 

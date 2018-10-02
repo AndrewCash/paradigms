@@ -18,12 +18,13 @@ class Model
     {
         sprites = new ArrayList<Sprite>();
         mario = new Mario(this);
+        sprites.add(new Mario(this));
 
-        sprites.add(mario);
+        //mario = sprites.add(new Mario(this));
 
-		// System.out.println("Loading...");
-        // Json j = Json.load("Map.json");
-        // unmarshal(j);
+		System.out.println("Loading...");
+        Json j = Json.load("Map.json");
+        unmarshal(j);
 
     }
 
@@ -49,26 +50,39 @@ class Model
             if (s.jumpCounter > 50 ||
                (s.am_I_a_Coin() && s.isColliding(s, mario)) ) // Coin goes off screen
             {
-                // Decrement i so that the next spite is not skipped over
-                // this could be handled by Iterator class
                 sprites.remove(i);
                 i--;
+
+                // Decrement i so that the next spite is not skipped over
+                // this could be handled by Iterator class
             }
 
-            if (s.am_I_a_Coin() && s.touchedMario == true) // Mario grabs coin
+            // for (int j=0; i < sprites.size(); j++)
+            // {
+            //     Sprite t = sprites.get(j);
+            //     if ((s != t) && s.am_I_a_Coin() && s.isColliding(s, t))
+            //     {
+            //         sprites.remove(i);
+            //         i--;
+            //     }
+            // }
+
+            if (s.am_I_a_Coin() && s.touchedMario ||
+                s.am_I_a_Coin() && s.hittingTop) // Mario grabs coin
             {
                 // Decrement i so that the next spite is not skipped over
                 // this could be handled by Iterator class
-                s.coinCounter++;
-                System.out.println(s.coinCounter);
-                mario.coinCounter++;
 
+                s.coinCounter++;
+                mario.coinCounter++;
+                //mario.soundEffects.playCoinCollect();
                 sprites.remove(i);
                 i--;
             }
         }
 
-        mario.update();
+        //if (mario != null)
+            mario.update();
     }
 
     /////////////////////////////////////////////////////////////
@@ -121,6 +135,7 @@ class Model
 
     void unmarshal(Json obj)
     {
+        //mario = null;
         sprites.clear();
         Json jsonList = obj.get("sprites");
         for (int i=0; i < jsonList.size(); i++)

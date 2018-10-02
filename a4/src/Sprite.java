@@ -20,8 +20,10 @@ abstract class Sprite
     int coinCounter;
     boolean onObject;
     boolean hittingBottom;
+    boolean hittingTop;
     boolean touchedMario;
-    Sounds soundEffects;
+    boolean facingRight;
+    Sounds soundEffects = new Sounds();
 
     abstract void update();
     abstract void draw(Graphics g, Model m, View v);
@@ -99,11 +101,11 @@ abstract class Sprite
 		// int mario_bottom = y + h;
 		// int mario_top = y;
 
-        if (b.am_I_a_Coin() == true)
-        {
-            b.touchedMario = true;
-            return;
-        }
+        // if (b.am_I_a_Coin() == true)
+        // {
+        //     b.touchedMario = true;
+        //     return;
+        // }
 
 		// M left side hits B right side
 		if (a.x <= (b.x + b.w) && a.prev_x > (b.x + b.w))
@@ -133,7 +135,8 @@ abstract class Sprite
             {
                 Coin c = new Coin(b.x, b.y);
                 b.hittingBottom = true;
-                b.soundEffects.playCoinSound();
+                if (b.coinCounter < 5)
+                    soundEffects.playCoinSound();
             }
 
 			return;
@@ -144,8 +147,9 @@ abstract class Sprite
 		{
 			//System.out.println("Hitting Top");
 			a.y = b.y - a.h + 1; // y + h = _y
-			a.vert_vel = 0.0;
+			a.vert_vel = 3.0;
 			a.jumpCounter = 0;
+            b.hittingTop = true;
 
             b.onObject = true;
 		}

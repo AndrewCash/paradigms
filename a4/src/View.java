@@ -73,7 +73,7 @@ class View extends JPanel
 		}
 
 		// Draw Mario
-		model.mario.draw(g, model, this);
+		//model.mario.draw(g, model, this);
 
 	}
 

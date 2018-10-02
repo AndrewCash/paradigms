@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 class Controller implements ActionListener, MouseListener, KeyListener
 {
@@ -23,6 +24,7 @@ class Controller implements ActionListener, MouseListener, KeyListener
 
 	int mouseDownX;
 	int mouseDownY;
+
 
 	Controller(Model m)
 	{
@@ -94,7 +96,9 @@ class Controller implements ActionListener, MouseListener, KeyListener
 		if (c == 's')
 		{
 			System.out.println("Saving...");
-			model.marshal().save("Map.json");
+			Json j = model.marshal();
+			j.save("Map.json");
+			//model.marshal().save("Map.json");
 		}
 		else if (c == 'l')
 		{
@@ -124,7 +128,8 @@ class Controller implements ActionListener, MouseListener, KeyListener
 	void update()
 	{
 		// Save Mario's prevoius position
-		model.rememberPreviousPosition();
+		if (model.mario != null)
+			model.rememberPreviousPosition();
 
 		if(keyRight)
 			model.goRight();
@@ -133,9 +138,11 @@ class Controller implements ActionListener, MouseListener, KeyListener
 			model.goLeft();
 
 		if (keySpace || keyUp)
-		{
 			model.mario.jump();
-		}
+		//
+		// if (keySpace == false)
+		// 	model.mario.spaceReleased = false;
+
 	}
 
 }
