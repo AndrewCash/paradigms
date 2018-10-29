@@ -1,0 +1,1 @@
+{"sprites":[{"type":"Mario","x":100,"y":1737,"w":60,"h":95,"vert_vel":20.399999999999995,"horz_vel":0.0,"coinCounter":0},{"type":"Brick","x":51,"y":431,"w":508,"h":34,"vert_vel":0.0,"horz_vel":0.0,"coinCounter":0},{"type":"CoinBlock","x":442,"y":176,"w":89,"h":83,"vert_vel":0.0,"horz_vel":0.0,"coinCounter":0}]}
