@@ -41,6 +41,22 @@ class Coin extends Sprite
         coinCounter = (int)obj.getLong("coinCounter");
     }
 
+    Coin(Coin copy)
+    {
+        type = "Coin";
+        x = copy.x;
+        y = copy.y;
+        vert_vel = copy.vert_vel;
+        horz_vel = copy.horz_vel;
+        coinCounter = copy.coinCounter;
+    }
+
+    Coin cloneMe()
+	{
+		return new Coin(this);
+	}
+
+
     void update()
     {
         // Update gravity
@@ -90,6 +106,19 @@ class CoinBlock extends Sprite
 
         model = m;
     }
+
+    CoinBlock(CoinBlock copy)
+    {
+        type = "CoinBlock";
+        x = copy.x;
+        y = copy.y;
+        coinCounter = copy.coinCounter;
+    }
+
+    CoinBlock cloneMe()
+	{
+		return new CoinBlock(this);
+	}
 
     void update()
     {

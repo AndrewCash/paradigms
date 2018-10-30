@@ -12,6 +12,7 @@ class Mario extends Sprite
 	Model model;
 	int spaceCounter;
 	boolean facingRight;
+	int numberofJumps;
 
 	Mario(Model m)
 	{
@@ -42,9 +43,30 @@ class Mario extends Sprite
 		coinCounter = (int)obj.getLong("coinCounter");
     }
 
+	// Deel copy
+	Mario(Mario copy, Model newModel)
+    {
+		//super(copy, newModel);
+		type = "Mario";
+        x = copy.x;
+        y = copy.y;
+        vert_vel = copy.vert_vel;
+		spaceCounter = copy.spaceCounter;
+		facingRight = copy.facingRight;
+		onObject = copy.onObject;
+		model = newModel;
+    }
+
+	Mario cloneMe()
+	{
+		//return new Mario(this);
+		return null;
+	}
+
 	void jump()
 	{
 		jumpCounter++;
+		numberofJumps++;
 
 		if (vert_vel > 10)
 			return;

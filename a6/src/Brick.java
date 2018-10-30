@@ -26,6 +26,20 @@ class Brick extends Sprite
         h = (int)obj.getLong("h");
     }
 
+    // Deep copy
+    Brick (Brick copy)
+    {
+        x = copy.x;
+        y = copy.y;
+        w = copy.w;
+        h = copy.h;
+    }
+
+    Brick cloneMe()
+	{
+		return new Brick(this);
+	}
+
     void update()
     {
     }

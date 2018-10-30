@@ -28,6 +28,40 @@ class Model
 
     }
 
+    Model(Model m)
+    {
+        // Deep copy ArrayList
+        // deepSprites = new ArrayList<Sprite>();
+        // for (int i=0; i<other.sprites.size(); i++)
+        // {
+        //     //sprites.add(new Sprite(other.sprites.get(i)));
+        //
+        //     if (other.deepSprites.get(i).am_I_a_Mario())
+        //     {
+        //         Sprite other = other.sprites.get(i);
+        //         Sprite clone = other.cloneMe(this);
+        //         sprites.add(clone);
+        //
+        //         if(clone.am_I_a_Mario())
+        //             mario = clone;
+        //     }
+        // }
+
+        // ArrayList<Sprite> deepSprites;
+        // deepSprites = new ArrayList<Sprite>();
+        // Iterator<Sprite> it = m.deepSprites.iterator();
+        //
+        // while (it.hasNext())
+        // {
+        //     Sprite otherSprite = it.next();
+        //     Sprite s = otherSprite.cloneMe();
+        //     deepSprites.add(s);
+        //
+        //     if (s.am_I_a_Mario())
+        //         mario = Mario(s);
+        // }
+    }
+
     void goRight()
     {
         mario.facingRight = true;

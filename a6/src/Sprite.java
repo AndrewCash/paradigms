@@ -7,6 +7,7 @@ import java.awt.Graphics;
 
 abstract class Sprite
 {
+    Model model;
     String type;
     int x;
     int y;
@@ -27,11 +28,20 @@ abstract class Sprite
 
     abstract void update();
     abstract void draw(Graphics g, Model m, View v);
+    abstract Sprite cloneMe();
 
     boolean am_I_a_Brick() { return false; }
     boolean am_I_a_CoinBlock() { return false; }
     boolean am_I_a_Coin() { return false; }
     boolean am_I_a_Mario() { return false; }
+
+    // Sprite(Sprite copyMe, Model theNewModel)
+    // {
+    //     x = copyMe.x;
+    //     y = copyMe.y;
+    //     w = copyMe.w;
+    //     h = copyMe.h;
+    // }
 
     //////////////////////////
     // Collison Detection
