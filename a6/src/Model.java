@@ -28,24 +28,29 @@ class Model
 
     }
 
-    Model(Model m)
+    // Deep copy constructors
+    Model(Model other)
     {
-        // Deep copy ArrayList
-        // deepSprites = new ArrayList<Sprite>();
-        // for (int i=0; i<other.sprites.size(); i++)
-        // {
-        //     //sprites.add(new Sprite(other.sprites.get(i)));
-        //
-        //     if (other.deepSprites.get(i).am_I_a_Mario())
-        //     {
-        //         Sprite other = other.sprites.get(i);
-        //         Sprite clone = other.cloneMe(this);
-        //         sprites.add(clone);
-        //
-        //         if(clone.am_I_a_Mario())
-        //             mario = clone;
-        //     }
-        // }
+        //Deep copy ArrayList
+        sprites = new ArrayList<Sprite>();
+        for (int i=0; i<other.sprites.size(); i++)
+        {
+            //sprites.add(new Sprite(other.sprites.get(i)));
+
+            if (other.sprites.get(i).am_I_a_Mario())
+            {
+                Sprite otherSprite = other.sprites.get(i);
+                Sprite clone = otherSprite.cloneMe();
+                sprites.add(clone);
+
+                if(clone.am_I_a_Mario())
+                {
+                    //mario = new Mario(clone, this);
+                    mario = (Mario)clone;
+                }
+
+            }
+        }
 
         // ArrayList<Sprite> deepSprites;
         // deepSprites = new ArrayList<Sprite>();
@@ -146,9 +151,9 @@ class Model
 		mario.rememberPreviousPosition();
 	}
 
-
-    //////////////////////////
+    /////////////////////////////////////////////////////////////
     // JSON saving and loading
+    /////////////////////////////////
 
     Json marshal()
     {
@@ -187,6 +192,56 @@ class Model
         }
 
 
+    }
+
+    /////////////////////////////////////////////////////////////
+    // AI
+    /////////////////////////////////
+    enum Action
+	{
+		run,
+		jump,
+		jump_and_run
+	}
+
+    void do_action(Action i)
+    {
+        if (i == Action.run)
+            mario.x += 10;
+        else if (i == Action.jump)
+            mario.vert_vel = -18.2;
+        else if (i == Action.jump_and_run)
+        {
+            mario.x += 10;
+            mario.vert_vel = -18.2;
+        }
+    }
+
+
+    double evaluateAction(Action action, int depth)
+    {
+        int d = 35;
+        int k = 6;
+
+        // Evaluate the state
+        if(depth >= d)
+            return scrollPos + 5000 * mario.coinCounter - 2 * mario.numberofJumps;
+
+        // Simulate the action
+        Model copy = new Model(this); // uses the copy constructor
+        copy.do_action(action); // like what Controller.update did before
+        copy.update(); // advance simulated time
+
+        // Recurse
+        if(depth % k != 0)
+            return copy.evaluateAction(action, depth + 1);
+        else
+        {
+            double best = copy.evaluateAction(Action.run, depth + 1);
+            best = Math.max(best, copy.evaluateAction(Action.jump, depth + 1));
+            best = Math.max(best, copy.evaluateAction(Action.jump_and_run, depth + 1));
+            return best;
+        }
     }
 
 }

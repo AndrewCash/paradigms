@@ -93,6 +93,7 @@ class CoinBlock extends Sprite
         soundEffects = new Sounds();
     }
 
+
     // Unmarshaling constructor
     CoinBlock(Json obj, Model m)
     {
@@ -107,17 +108,20 @@ class CoinBlock extends Sprite
         model = m;
     }
 
-    CoinBlock(CoinBlock copy)
+    CoinBlock(CoinBlock copy, Model otherModel)
     {
         type = "CoinBlock";
         x = copy.x;
         y = copy.y;
+        w = copy.w;
+        h = copy.h;
         coinCounter = copy.coinCounter;
+        model = otherModel;
     }
 
     CoinBlock cloneMe()
 	{
-		return new CoinBlock(this);
+		return new CoinBlock(this, this.model);
 	}
 
     void update()

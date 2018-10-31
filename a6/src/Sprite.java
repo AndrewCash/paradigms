@@ -35,13 +35,17 @@ abstract class Sprite
     boolean am_I_a_Coin() { return false; }
     boolean am_I_a_Mario() { return false; }
 
-    // Sprite(Sprite copyMe, Model theNewModel)
-    // {
-    //     x = copyMe.x;
-    //     y = copyMe.y;
-    //     w = copyMe.w;
-    //     h = copyMe.h;
-    // }
+    Sprite()
+    {
+    }
+
+    Sprite(Sprite copyMe, Model theNewModel)
+    {
+        x = copyMe.x;
+        y = copyMe.y;
+        w = copyMe.w;
+        h = copyMe.h;
+    }
 
     //////////////////////////
     // Collison Detection
@@ -111,13 +115,12 @@ abstract class Sprite
 		// int mario_bottom = y + h;
 		// int mario_top = y;
 
-        // if (b.am_I_a_Coin() == true)
-        // {
-        //     b.touchedMario = true;
-        //     return;
-        // }
+        if (b.am_I_a_Coin() == true)
+        {
+            a.coinCounter++;
+        }
 
-		// M left side hits B right side
+		// A left side hits B right side
 		if (a.x <= (b.x + b.w) && a.prev_x > (b.x + b.w))
 		{
 			//System.out.println("Hitting Right");
@@ -125,7 +128,7 @@ abstract class Sprite
 			return;
 		}
 
-		// M right side hits B left side
+		// A right side hits B left side
 		else if ((a.x + a.w) >= b.x && (a.prev_x + a.w) < b.x)
 		{
 			//System.out.println("Hitting Left");
@@ -133,7 +136,7 @@ abstract class Sprite
 			return;
 		}
 
-		// M top hits B bottom
+		// A top hits B bottom
 		else if (a.y <= (b.y + b.h) && a.prev_y >= (b.y + b.h))
 		{
 			//System.out.println("Hitting Bottom");
@@ -152,7 +155,7 @@ abstract class Sprite
 			return;
 		}
 
-		// M bottom hits B top
+		// A bottom hits B top
 		else if ((a.y + a.h) >= b.y && (a.prev_y + a.h) >= b.y)
 		{
 			//System.out.println("Hitting Top");

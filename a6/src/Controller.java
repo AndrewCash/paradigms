@@ -131,6 +131,7 @@ class Controller implements ActionListener, MouseListener, KeyListener
 
 	public void keyTyped(KeyEvent e) {    }
 
+
 	///////////////////////
 	// Update model destination
 	//
@@ -151,6 +152,24 @@ class Controller implements ActionListener, MouseListener, KeyListener
 		//
 		// if (keySpace == false)
 		// 	model.mario.spaceReleased = false;
+
+
+		//////////////////
+		// automatic AI
+		//////////////////
+
+		// // Evaluate each possible action
+		// double score_run = model.evaluateAction(Model.Action.run, 0);
+		// double score_jump = model.evaluateAction(Model.Action.jump, 0);
+		// double score_jump_and_run = model.evaluateAction(Model.Action.jump_and_run, 0);
+		//
+		// // Do the best one
+		// if(score_jump_and_run > score_jump && score_jump_and_run > score_run)
+		// 	model.do_action(Model.Action.jump_and_run);
+		// else if(score_jump > score_run)
+		// 	model.do_action(Model.Action.jump);
+		// else
+		// 	model.do_action(Model.Action.run);
 
 	}
 

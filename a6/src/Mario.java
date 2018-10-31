@@ -43,30 +43,32 @@ class Mario extends Sprite
 		coinCounter = (int)obj.getLong("coinCounter");
     }
 
-	// Deel copy
+	// Deep copy
 	Mario(Mario copy, Model newModel)
     {
-		//super(copy, newModel);
+		super(copy, newModel);
 		type = "Mario";
-        x = copy.x;
-        y = copy.y;
         vert_vel = copy.vert_vel;
 		spaceCounter = copy.spaceCounter;
 		facingRight = copy.facingRight;
 		onObject = copy.onObject;
+		jumpCounter = copy.jumpCounter;
 		model = newModel;
     }
 
 	Mario cloneMe()
 	{
-		//return new Mario(this);
-		return null;
+		return new Mario(this, this.model);
+
 	}
 
 	void jump()
 	{
 		jumpCounter++;
+
 		numberofJumps++;
+		System.out.println(numberofJumps);
+
 
 		if (vert_vel > 10)
 			return;
@@ -105,8 +107,6 @@ class Mario extends Sprite
 					// System.out.println("velocity is: " + Double.toString(vert_vel));
 
 					getOut(this, s);
-
-					// System.out.println("");
 				}
 			}
 
