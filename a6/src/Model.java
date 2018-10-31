@@ -45,26 +45,11 @@ class Model
 
                 if(clone.am_I_a_Mario())
                 {
-                    //mario = new Mario(clone, this);
+                    // Cast Mario type to Sprite clone
                     mario = (Mario)clone;
                 }
-
             }
         }
-
-        // ArrayList<Sprite> deepSprites;
-        // deepSprites = new ArrayList<Sprite>();
-        // Iterator<Sprite> it = m.deepSprites.iterator();
-        //
-        // while (it.hasNext())
-        // {
-        //     Sprite otherSprite = it.next();
-        //     Sprite s = otherSprite.cloneMe();
-        //     deepSprites.add(s);
-        //
-        //     if (s.am_I_a_Mario())
-        //         mario = Mario(s);
-        // }
     }
 
     void goRight()
@@ -204,15 +189,16 @@ class Model
 		jump_and_run
 	}
 
-    void do_action(Action i)
+    void do_action(Action action)
     {
-        if (i == Action.run)
-            mario.x += 10;
-        else if (i == Action.jump)
-            mario.jump();
-        else if (i == Action.jump_and_run)
+        this.mario.rememberPreviousPosition();
+        if (action == Action.run)
+            this.mario.x += 10;
+        else if (action == Action.jump)
+            this.mario.jump();
+        else if (action == Action.jump_and_run)
         {
-            mario.x += 10;
+            this.mario.x += 10;
             mario.jump();
         }
     }
@@ -223,8 +209,8 @@ class Model
         System.out.println("Thinking...");
         System.out.println("Action: " + action + " Depth: " + depth);
 
-        int d = 2;
-        int k = 1;
+        int d = 34;
+        int k = 10;
 
         // Evaluate the state
         if(depth >= d)
