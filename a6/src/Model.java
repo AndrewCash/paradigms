@@ -209,19 +209,22 @@ class Model
         if (i == Action.run)
             mario.x += 10;
         else if (i == Action.jump)
-            mario.vert_vel = -18.2;
+            mario.jump();
         else if (i == Action.jump_and_run)
         {
             mario.x += 10;
-            mario.vert_vel = -18.2;
+            mario.jump();
         }
     }
 
 
     double evaluateAction(Action action, int depth)
     {
-        int d = 35;
-        int k = 6;
+        System.out.println("Thinking...");
+        System.out.println("Action: " + action + " Depth: " + depth);
+
+        int d = 2;
+        int k = 1;
 
         // Evaluate the state
         if(depth >= d)

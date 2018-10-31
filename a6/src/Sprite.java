@@ -115,10 +115,10 @@ abstract class Sprite
 		// int mario_bottom = y + h;
 		// int mario_top = y;
 
-        if (b.am_I_a_Coin() == true)
-        {
-            a.coinCounter++;
-        }
+        // if (b.am_I_a_Coin() == true)
+        // {
+        //     a.coinCounter++;
+        // }
 
 		// A left side hits B right side
 		if (a.x <= (b.x + b.w) && a.prev_x > (b.x + b.w))
@@ -147,6 +147,7 @@ abstract class Sprite
             if (b.am_I_a_CoinBlock())
             {
                 Coin c = new Coin(b.x, b.y);
+                a.coinCounter++;
                 b.hittingBottom = true;
                 if (b.coinCounter < 5)
                     soundEffects.playCoinSound();

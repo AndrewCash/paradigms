@@ -66,16 +66,27 @@ class Mario extends Sprite
 	{
 		jumpCounter++;
 
-		numberofJumps++;
+		// if (onObject)
+		// {
+		// 	numberofJumps++;
+		// 	System.out.println("On object is true!!");
+		// }
+
+		do
+		{
+			numberofJumps++;
+		}
+		while (onObject);
+
 		System.out.println(numberofJumps);
+		onObject = false;
+
 
 
 		if (vert_vel > 10)
 			return;
 		else if (jumpCounter < 10)
 				vert_vel = -10;
-
-		onObject = false;
 	}
 
 	void update()
