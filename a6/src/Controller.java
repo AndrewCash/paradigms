@@ -21,7 +21,8 @@ class Controller implements ActionListener, MouseListener, KeyListener
 	boolean keyUp;
 	boolean keyDown;
 	boolean keySpace;
-	boolean mapEditor = false;
+	boolean mapEditor = true;
+	boolean AI = false;
 
 	int mouseDownX;
 	int mouseDownY;
@@ -104,8 +105,8 @@ class Controller implements ActionListener, MouseListener, KeyListener
 			{
 				System.out.println("Saving...");
 				Json j = model.marshal();
-				j.save("Map.json");
-				//model.marshal().save("Map.json");
+				//j.save("Map.json");
+				model.marshal().save("Map.json");
 			}
 			else if (c == 'l')
 			{
@@ -157,20 +158,20 @@ class Controller implements ActionListener, MouseListener, KeyListener
 		//////////////////
 		// automatic AI
 		//////////////////
+		if (AI)
+		{
+			// Evaluate each possible action
+			double score_run = model.evaluateAction(Model.Action.run, 0);
+			double score_jump = model.evaluateAction(Model.Action.jump, 0);
+			//double score_jump_and_run = model.evaluateAction(Model.Action.jump_and_run, 0);
 
-		// Evaluate each possible action
-		double score_run = model.evaluateAction(Model.Action.run, 0);
-		double score_jump = model.evaluateAction(Model.Action.jump, 0);
-		double score_jump_and_run = model.evaluateAction(Model.Action.jump_and_run, 0);
-
-		// Do the best one
-		if(score_jump_and_run > score_jump && score_jump_and_run > score_run)
-			model.do_action(Model.Action.jump_and_run);
-		else if(score_jump > score_run)
-			model.do_action(Model.Action.jump);
-		else
-			model.do_action(Model.Action.run);
-
+			// Do the best one
+			//if(score_jump_and_run > score_jump && score_jump_and_run > score_run)
+				//model.do_action(Model.Action.jump_and_run);
+			if(score_jump > score_run)
+				model.do_action(Model.Action.jump);
+			else
+				model.do_action(Model.Action.run);
+		}
 	}
-
 }

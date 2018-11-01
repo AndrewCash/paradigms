@@ -19,7 +19,6 @@ class Model
         sprites = new ArrayList<Sprite>();
         mario = new Mario(this);
         sprites.add(new Mario(this));
-
         //mario = sprites.add(new Mario(this));
 
 		System.out.println("Loading...");
@@ -186,21 +185,22 @@ class Model
 	{
 		run,
 		jump,
-		jump_and_run
+		//jump_and_run
 	}
 
     void do_action(Action action)
     {
-        this.mario.rememberPreviousPosition();
+        //this.mario.rememberPreviousPosition();
         if (action == Action.run)
-            this.mario.x += 10;
+            mario.x += 10;
         else if (action == Action.jump)
-            this.mario.jump();
-        else if (action == Action.jump_and_run)
-        {
-            this.mario.x += 10;
-            mario.jump();
-        }
+            mario.vert_vel = -10;
+            //mario.jump();
+        // else if (action == Action.jump_and_run)
+        // {
+        //     mario.x += 10;
+        //     mario.vert_vel = -10;
+        // }
     }
 
 
@@ -209,12 +209,12 @@ class Model
         System.out.println("Thinking...");
         System.out.println("Action: " + action + " Depth: " + depth);
 
-        int d = 34;
+        int d = 36;
         int k = 10;
 
         // Evaluate the state
         if(depth >= d)
-            return scrollPos + 5000 * mario.coinCounter - 2 * mario.numberofJumps;
+            return (scrollPos + (1000000000 * mario.coinCounter) - (2 * mario.numberofJumps));
 
         // Simulate the action
         Model copy = new Model(this); // uses the copy constructor
@@ -228,7 +228,7 @@ class Model
         {
             double best = copy.evaluateAction(Action.run, depth + 1);
             best = Math.max(best, copy.evaluateAction(Action.jump, depth + 1));
-            best = Math.max(best, copy.evaluateAction(Action.jump_and_run, depth + 1));
+            //best = Math.max(best, copy.evaluateAction(Action.jump_and_run, depth + 1));
             return best;
         }
     }
