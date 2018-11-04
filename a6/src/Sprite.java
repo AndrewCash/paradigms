@@ -147,10 +147,13 @@ abstract class Sprite
             if (b.am_I_a_CoinBlock())
             {
                 Coin c = new Coin(b.x, b.y);
-                a.coinCounter++;
                 b.hittingBottom = true;
                 if (b.coinCounter < 5)
+                {
+                    a.coinCounter++;
                     soundEffects.playCoinSound();
+                    System.out.println("Coin cointer: " + a.coinCounter);
+                }
             }
 
 			return;

@@ -21,9 +21,19 @@
             "coinCounter": 0
         },
         {
+            "type": "Brick",
+            "x": 588,
+            "y": 375,
+            "w": 90,
+            "h": 70,
+            "vert_vel": 0,
+            "horz_vel": 0,
+            "coinCounter": 0
+        },
+        {
             "type": "CoinBlock",
             "x": 442,
-            "y": 176,
+            "y": 150,
             "w": 89,
             "h": 83,
             "vert_vel": 0,
@@ -33,7 +43,7 @@
         {
             "type": "CoinBlock",
             "x": 886,
-            "y": 176,
+            "y": 150,
             "w": 89,
             "h": 83,
             "vert_vel": 0,

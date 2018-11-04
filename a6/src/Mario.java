@@ -53,6 +53,7 @@ class Mario extends Sprite
 		facingRight = copy.facingRight;
 		onObject = copy.onObject;
 		jumpCounter = copy.jumpCounter;
+		numberofJumps = copy.numberofJumps;
 		model = newModel;
     }
 
@@ -66,22 +67,9 @@ class Mario extends Sprite
 	{
 		jumpCounter++;
 
-		// if (onObject)
-		// {
-		// 	numberofJumps++;
-		// 	System.out.println("On object is true!!");
-		// }
-
-		do
-		{
-			numberofJumps++;
-		}
-		while (onObject);
-
-		System.out.println(numberofJumps);
+		numberofJumps++;
+		System.out.println("Number of jumps: " + numberofJumps);
 		onObject = false;
-
-
 
 		if (vert_vel > 10)
 			return;

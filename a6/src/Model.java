@@ -116,6 +116,7 @@ class Model
     {
         Brick b = new Brick(x1, y1, x2, y2);
         sprites.add(b);
+        //System.out.println("New Brick at (" + x1 + "," + y1 + "," + "," + x2 + "," + y2 + ")");
     }
 
     void addCoinBlock(int x, int y)
