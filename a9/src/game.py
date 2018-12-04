@@ -109,7 +109,15 @@ class View():
 
     def update(self):
         self.screen.fill([0,200,100])
-        self.screen.blit(self.mario_image, self.model.rect)
+
+        for i in self.model.sprites:
+            if i.type == "Brick":
+                brickColor = (160, 68, 22)
+                pygame.draw.rect(self.screen, brickColor, (i.x, i.y, i.w, i.h), 0)
+            else if i.type == "Mario":
+                self.screen.blit(self.mario_image, self.model.rect)
+
+        # update the contents of the entire display
         pygame.display.flip()
 
 #     __   ___   ____   ______  ____    ___   _      _        ___  ____
@@ -165,3 +173,6 @@ while c.keep_going:
     v.update()
     sleep(0.04)
 print("Goodbye")
+
+
+# ASCII art from http://patorjk.com/software/taag/#p=display&f=Crawford&t=Sprite
